@@ -8,3 +8,4 @@ sites/*/private
 # Ignore drupal staging directories
 drupal-7.22/*
 ../drupal-7.22/*
+/nbproject/private/

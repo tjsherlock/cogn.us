@@ -1,0 +1,6408 @@
+<?php
+
+/**
+ * @file
+ * Present various paper calculators.
+ */
+
+
+
+
+
+
+/*
+ * Implements hook_help().
+ */
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function paper_calculators_help($path, $args) { }
+
+
+
+/*
+ * Implements hook_init().
+ *
+ */
+
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function paper_calculators_init() {
+
+  _build_unit_of_measure_lists();
+
+
+}
+
+function _build_unit_of_measure_lists() {
+
+  global $_paper_calculators_units_om;
+  $_paper_calculators_units_om = array();
+
+  $_paper_calculators_units_om['length'] = _build_length_list();
+  $_paper_calculators_units_om['area'] = _build_area_list();
+  $_paper_calculators_units_om['volume'] = _build_volume_list();
+  $_paper_calculators_units_om['pressure'] = _build_pressure_list();
+  $_paper_calculators_units_om['weight_1'] = _build_weight_1_list();
+  $_paper_calculators_units_om['density'] = _build_density_list();
+  $_paper_calculators_units_om['weight_2'] = _build_weight_2_list();
+}
+
+
+
+function _build_length_list() {
+
+  $length_units = array();
+
+  $length_units['centimeter'] = array(
+    'unit_id' => 101,
+    'factor' => 0.01,
+    'single' => 'centimeter',
+    'plural' => 'centimeters',
+    'abbrev' => 'cm',
+    'domain' => array(
+      'name' => 'length',
+      'id' => '100',
+    ),
+  );
+
+  //,102, "0.0042333", "Em (pica)", "Ems (pica)", "em" _
+  $length_units['em'] = array(
+    'unit_id' => 102,
+    'factor' => 0.0042333,
+    'single' => 'Em (pica)',
+    'plural' => 'Ems (pica)',
+    'abbrev' => 'em',
+    'domain' => array(
+      'name' => 'length',
+      'id' => '100',
+    ),
+  );
+
+  //,103, "0.3048", "Foot", "Feet", "ft"
+  $length_units['foot'] = array(
+    'unit_id' => 103,
+    'factor' => 0.3048,
+    'single' => 'Foot',
+    'plural' => 'Feet',
+    'abbrev' => 'ft',
+    'domain' => array(
+      'name' => 'length',
+      'id' => '100',
+    ),
+  );
+
+  //,104, "0.0254", "Inch", "Inches", "in"
+  $length_units['inch'] = array(
+    'unit_id' => 104,
+    'factor' => 0.0254,
+    'single' => 'Inch',
+    'plural' => 'Inches',
+    'abbrev' => 'in',
+    'domain' => array(
+      'name' => 'length',
+      'id' => '100',
+    ),
+  );
+
+  //,105, "1000", "Kilometer", "Kilometers", "km"
+  $length_units['kilometer'] = array(
+    'unit_id' => 105,
+    'factor' => 1000,
+    'single' => 'Kilometer',
+    'plural' => 'Kilometers',
+    'abbrev' => 'km',
+    'domain' => array(
+      'name' => 'length',
+      'id' => '100',
+    ),
+  );
+
+  //,106, "1", "Meter", "Meters", "m"
+  $length_units['meter'] = array(
+    'unit_id' => 106,
+    'factor' => 1,
+    'single' => 'Meter',
+    'plural' => 'Meters',
+    'abbrev' => 'm',
+    'domain' => array(
+      'name' => 'length',
+      'id' => '100',
+    ),
+  );
+
+  //,107, "1e-6", "Micrometer", "Micrometers", ""
+  $length_units['micrometer'] = array(
+    'unit_id' => 107,
+    'factor' => 1e-6,
+    'single' => 'Micrometer',
+    'plural' => 'Micrometers',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'length',
+      'id' => '100',
+    ),
+  );
+
+  //,108, "0.0000254", "Mil", "Mil", "mil"
+  $length_units['mil'] = array(
+    'unit_id' => 108,
+    'factor' => 0.0000254,
+    'single' => 'Mil',
+    'plural' => 'Mil',
+    'abbrev' => 'mil',
+    'domain' => array(
+      'name' => 'length',
+      'id' => '100',
+    ),
+  );
+
+//  ,109, "1609.344", "Mile", "Miles", "mi" _
+  $length_units['mile'] = array(
+    'unit_id' => 109,
+    'factor' => 1609.344,
+    'single' => 'Mile',
+    'plural' => 'Miles',
+    'abbrev' => 'mi',
+    'domain' => array(
+      'name' => 'length',
+      'id' => '100',
+    ),
+  );
+
+
+//  ,110, "0.001", "Millimeter", "Millimeters", "mm" _
+  $length_units['millimeter'] = array(
+    'unit_id' => 110,
+    'factor' => 0.001,
+    'single' => 'Millimeter',
+    'plural' => 'Millimeters',
+    'abbrev' => 'mm',
+    'domain' => array(
+      'name' => 'length',
+      'id' => '100',
+    ),
+  );
+
+
+//  ,111, "3.5277777777777777777777777777778e-4", "Point", "Points", "pt" _
+  $length_units['point'] = array(
+    'unit_id' => 111,
+    'factor' => 3.5277777777777777777777777777778e-4,
+    'single' => 'Point',
+    'plural' => 'Points',
+    'abbrev' => 'pt',
+    'domain' => array(
+      'name' => 'length',
+      'id' => '100',
+    ),
+  );
+
+//  ,112, "0.9144", "Yard", "Yards", "yd"
+  $length_units['yard'] = array(
+    'unit_id' => 112,
+    'factor' => 0.9144,
+    'single' => 'Yard',
+    'plural' => 'Yards',
+    'abbrev' => 'yd',
+    'domain' => array(
+      'name' => 'length',
+      'id' => '100',
+    ),
+  );
+
+  return $length_units;
+}
+
+function _build_area_list() {
+
+  $units = array();
+
+  //,201, "4046.8564224", "Acre", "Acres", "" _
+  $units['acre'] = array(
+    'unit_id' => 201,
+    'factor' => 4046.8564224,
+    'single' => 'Acre',
+    'plural' => 'Acres',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Area',
+      'id' => '200',
+    ), //,array("200", "Area", 205,208,"" _
+  );
+
+  //,202, "100", "Are", "Ares", "" _
+  $units['are'] = array(
+    'unit_id' => 202,
+    'factor' => 100,
+    'single' => 'Are',
+    'plural' => 'Ares',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Area',
+      'id' => '200',
+    ), //,array("200", "Area", 205,208,"" _
+  );
+
+  //,203, "1e4", "Hectare", "Hectares", "" _
+  $units['hectare'] = array(
+    'unit_id' => 203,
+    'factor' => 1e4,
+    'single' => 'Hectare',
+    'plural' => 'Hectares',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Area',
+      'id' => '200',
+    ), //,array("200", "Area", 205,208,"" _
+  );
+
+  //,204, "1e-4", "Square Centimeter", "Square Centimeters", "cm≤" _
+  $units['square_centimeter'] = array(
+    'unit_id' => 204,
+    'factor' => 1e-4,
+    'single' => 'Square Centimeter',
+    'plural' => 'Square Centimeters',
+    'abbrev' => 'cm≤',
+    'domain' => array(
+      'name' => 'Area',
+      'id' => '200',
+    ), //,array("200", "Area", 205,208,"" _
+  );
+
+
+  //,205, "0.09290304", "Square Foot", "Square Feet", "ft≤"
+  $units['square_foot'] = array(
+    'unit_id' => 205,
+    'factor' => 0.09290304,
+    'single' => 'Square Foot',
+    'plural' => 'Square Feet',
+    'abbrev' => 'cm²',
+    'domain' => array(
+      'name' => 'Area',
+      'id' => '200',
+    ), //,array("200", "Area", 205,208,"" _
+  );
+
+  //,206, "0.00064516", "Square Inch", "Square Inches", "in≤" _
+  $units['square_inch'] = array(
+    'unit_id' => 206,
+    'factor' => 0.00064516,
+    'single' => 'Square Inch',
+    'plural' => 'Square Inches',
+    'abbrev' => 'in²',
+    'domain' => array(
+      'name' => 'Area',
+      'id' => '200',
+    ), //,array("200", "Area", 205,208,"" _
+  );
+
+
+  //,207, "1e6", "Square Kilometer", "Square Kilometers", "km≤" _
+  $units['square_kilometer'] = array(
+    'unit_id' => 207,
+    'factor' => 1e6,
+    'single' => 'Square Kilometer',
+    'plural' => 'Square Kilometers',
+    'abbrev' => 'km²',
+    'domain' => array(
+      'name' => 'Area',
+      'id' => '200',
+    ), //,array("200", "Area", 205,208,"" _
+  );
+
+
+  //,208, "1", "Square Meter", "Square Meters", "m≤" _
+  $units['square_meter'] = array(
+    'unit_id' => 208,
+    'factor' => 1,
+    'single' => 'Square Meter',
+    'plural' => 'Square Meters',
+    'abbrev' => 'm²',
+    'domain' => array(
+      'name' => 'Area',
+      'id' => '200',
+    ), //,array("200", "Area", 205,208,"" _
+  );
+
+
+  //,209, "2589988.110336", "Square Mile", "Square Miles", "mi≤" _
+  $units['square_mile'] = array(
+    'unit_id' => 209,
+    'factor' => 2589988.110336,
+    'single' => 'Square Mile',
+    'plural' => 'Square Miles',
+    'abbrev' => 'mi²',
+    'domain' => array(
+      'name' => 'Area',
+      'id' => '200',
+    ), //,array("200", "Area", 205,208,"" _
+  );
+
+
+  //,210, "1e-6", "Square Millimeter", "Square Millimeters", "mm≤" _
+  $units['square_millimeter'] = array(
+    'unit_id' => 210,
+    'factor' => 1e-6,
+    'single' => 'Square Millimeter',
+    'plural' => 'Square Millimeters',
+    'abbrev' => 'mm²',
+    'domain' => array(
+      'name' => 'Area',
+      'id' => '200',
+    ), //,array("200", "Area", 205,208,"" _
+  );
+
+
+  //,211, "0.83612736", "Square Yard", "Square Yards", "yd≤" _
+  $units['square_yard'] = array(
+    'unit_id' => 211,
+    'factor' => 0.83612736,
+    'single' => 'Square Yard',
+    'plural' => 'Square Yards',
+    'abbrev' => 'yd²',
+    'domain' => array(
+      'name' => 'Area',
+      'id' => '200',
+    ), //,array("200", "Area", 205,208,"" _
+  );
+
+  return $units;
+}
+
+
+function _build_volume_list() {
+
+
+  $units = array();
+
+
+  //,301, "158.987294928", "Barrel (oil)", "Barrels (oil)", "bbl" _
+  $units['barrel_oil'] = array(
+    'unit_id' => 301,
+    'factor' => 158.987294928,
+    'single' => 'Barrel (oil)',
+    'plural' => 'Barrels (oil)',
+    'abbrev' => 'bbl',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  //,302, "0.01", "Centiliter", "Centiliters", "cl" _
+  $units['centiliter'] = array(
+    'unit_id' => 302,
+    'factor' => 0.01,
+    'single' => 'Centiliter',
+    'plural' => 'Centiliters',
+    'abbrev' => 'cl',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  //,303, "1e-3", "Cubic Centimeter", "Cubic Centimeters", "cm≥" _
+  $units['cubic_centimeter'] = array(
+    'unit_id' => 303,
+    'factor' => 1e-3,
+    'single' => 'Cubic Centimeter',
+    'plural' => 'Cubic Centimeters',
+    'abbrev' => 'cm³',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  //,304, "28.316846592", "Cubic Foot", "Cubic Feet", "ft≥" _
+  $units['cubic_foot'] = array(
+    'unit_id' => 304,
+    'factor' => 28.316846592,
+    'single' => 'Cubic Foot',
+    'plural' => 'Cubic Feet',
+    'abbrev' => 'ft³',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  //,305, "0.016387064", "Cubic Inch", "Cubic Inches", "in≥" _
+  $units['cubic_inch'] = array(
+    'unit_id' => 305,
+    'factor' => 0.016387064,
+    'single' => 'Cubic Inch',
+    'plural' => 'Cubic Inches',
+    'abbrev' => 'in³',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  //,306, "1e3", "Cubic Meter", "Cubic Meters", "m≥" _
+  $units['cubic_meter'] = array(
+    'unit_id' => 306,
+    'factor' => 1e3,
+    'single' => 'Cubic Meter',
+    'plural' => 'Cubic Meters',
+    'abbrev' => 'm³',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  //,307, "1e-6", "Cubic Millimeter", "Cubic Millimeters", "mm≥" _
+  $units['cubic_millimeter'] = array(
+    'unit_id' => 307,
+    'factor' => 1e-6,
+    'single' => 'Cubic Millimeter',
+    'plural' => 'Cubic Millimeters',
+    'abbrev' => 'mm³',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  //,308, "764.554857984", "Cubic Yard", "Ccubic Yards", "yd≥" _
+  $units['cubic_yard'] = array(
+    'unit_id' => 308,
+    'factor' => 764.554857984,
+    'single' => 'Cubic Yard',
+    'plural' => 'Cubic Yards',
+    'abbrev' => 'yd³',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  //,309, "0.2365882365", "Cup", "Cups", "" _
+  $units['cup'] = array(
+    'unit_id' => 309,
+    'factor' => 0.2365882365,
+    'single' => 'Cup',
+    'plural' => 'Cups',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  //,310, "0.1", "Deciliter", "Deciliters", "dl" _
+  $units['deciliter'] = array(
+    'unit_id' => 310,
+    'factor' => 0.1,
+    'single' => 'Deciliter',
+    'plural' => 'Deciliters',
+    'abbrev' => 'dl',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  // ,311, "0.0284130625", "Fluid Ounce (UK)", "Fluid Ounces (UK)", "" _
+  $units['fluid_ounce_uk'] = array(
+    'unit_id' => 311,
+    'factor' => 0.0284130625,
+    'single' => 'Fluid Ounce (UK)',
+    'plural' => 'Fluid Ounces (UK)',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  //,312, "0.0295735295625", "Fluid Ounce (US)", "Fluid Ounces (US)", "floz" _
+  $units['fluid_ounce_us'] = array(
+    'unit_id' => 312,
+    'factor' => 0.0295735295625,
+    'single' => 'Fluid Ounce (US)',
+    'plural' => 'Fluid Ounces (US)',
+    'abbrev' => 'floz',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+
+  //,313, "4.54609", "Gallon (UK)", "Gallons (UK)", "" _
+  $units['gallon_uk'] = array(
+    'unit_id' => 313,
+    'factor' => 4.54609,
+    'single' => 'Gallon (UK)',
+    'plural' => 'Gallons (UK)',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  //,314, "4.40488377086", "Gallon, dry (US)", "Gallons, dry (US)", "" _
+  $units['gallon_dry_us'] = array(
+    'unit_id' => 314,
+    'factor' => 4.40488377086,
+    'single' => 'Gallon, dry (US)',
+    'plural' => 'Gallons, dry (US)',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  // ,315, "3.785411784", "Ggallon, liquid (US)", "Gallons, liquid (US)", "ga" _
+  $units['gallon_liquid_us'] = array(
+    'unit_id' => 315,
+    'factor' => 3.785411784,
+    'single' => 'Gallon, liquid (US)',
+    'plural' => 'Gallons, liquid (US)',
+    'abbrev' => 'ga',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  //,316, "1", "Liter", "Liters", "l" _
+  $units['liter'] = array(
+    'unit_id' => 316,
+    'factor' => 1,
+    'single' => 'Liter',
+    'plural' => 'Liters',
+    'abbrev' => 'l',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  // ,317, "1e-3", "Milliliter", "Milliliters", "ml" _
+  $units['milliliter'] = array(
+    'unit_id' => 317,
+    'factor' => 1e-3,
+    'single' => 'Milliliter',
+    'plural' => 'Milliliters',
+    'abbrev' => 'ml',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  // ,318, "0.56826125", "Pint (UK)", "Pints (UK)", "" _
+  $units['pint_uk'] = array(
+    'unit_id' => 318,
+    'factor' => 0.56826125,
+    'single' => 'Pint (UK)',
+    'plural' => 'Pints (UK)',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  // ,319, "0.5506104713575", "Pints, dry (US)", "Pints, dry (US)", "" _
+  $units['pint_dry_us'] = array(
+    'unit_id' => 319,
+    'factor' => 0.5506104713575,
+    'single' => 'Pint, dry (US)',
+    'plural' => 'Pints, dry (US)',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  // ,320, "0.473176473", "Pint, liquid (US)", "Pints, liquid (US)", "pt" _
+  $units['pint_liquid_us'] = array(
+    'unit_id' => 320,
+    'factor' => 0.473176473,
+    'single' => 'Pint, liquid (US)',
+    'plural' => 'Pints, liquid (US)',
+    'abbrev' => 'pt',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  // ,321, "1.1365225", "Quart (UK)", "Quarts (UK)", "" _
+  $units['quart_uk'] = array(
+    'unit_id' => 321,
+    'factor' => 1.1365225,
+    'single' => 'Quart (UK)',
+    'plural' => 'Quarts (UK)',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  // ,322, "1.101220942715", "Quart, dry (US)", "Quarts, dry (US)", "" _
+  $units['quart_dry_us'] = array(
+    'unit_id' => 322,
+    'factor' => 1.101220942715,
+    'single' => 'Quart, dry (US)',
+    'plural' => 'Quarts, dry (US)',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+  // ,323, "0.946352946", "Quart, liquid (US)", "Quarts, liquid (US)", "qt" _
+  $units['quart_liquid_us'] = array(
+    'unit_id' => 323,
+    'factor' => 0.946352946,
+    'single' => 'Quart, liquid (US)',
+    'plural' => 'Quarts, liquid (US)',
+    'abbrev' => 'qt',
+    'domain' => array(
+      'name' => 'Volume',
+      'id' => '300',
+    ), //,array("300", "Volume", 306,304,"" _
+  );
+
+
+
+
+  return $units;
+
+}
+
+function _build_pressure_list() {
+
+  $units = array();
+
+  //,array("400", "Pressure", 421,418,"" _
+
+  //,401, "101325", "Atmosphere", "Atmospheres", "" _
+  $units['atmosphere'] = array(
+    'unit_id' => 401,
+    'factor' => 101325,
+    'single' => 'Atmosphere',
+    'plural' => 'Atmospheres',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+  //,402, "1e5", "Bar", "Bars", "" _
+  $units['bar'] = array(
+    'unit_id' => 402,
+    'factor' => 1e5,
+    'single' => 'Bar',
+    'plural' => 'Bars',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,403, "1333.22", "Centimeter mercury", "Centimeters mercury", "" _
+  $units['centimeter_mercury'] = array(
+    'unit_id' => 403,
+    'factor' => 1333.22,
+    'single' => 'Centimeter mercury',
+    'plural' => 'Centimeters mercury',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,404, "98.0665", "Centimeter water", "Centimeters water", "" _
+  $units['centimeter_water'] = array(
+    'unit_id' => 404,
+    'factor' => 98.0665,
+    'single' => 'Centimeter water',
+    'plural' => 'Centimeters water',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,405, "2989.06692", "Foot of water", "Feet of water", "" _
+  $units['foot_of_water'] = array(
+    'unit_id' => 405,
+    'factor' => 2989.06692,
+    'single' => 'Foot of water',
+    'plural' => 'Feet of water',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,406, "249.08891", "Inch of water", "Inches of water", "" _
+  $units['inch_of_water'] = array(
+    'unit_id' => 406,
+    'factor' => 249.08891,
+    'single' => 'Inch of water',
+    'plural' => 'Inches of water',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,407, "3386.388", "Inch of mercury", "Inches of mercury", "" _
+  $units['Inch_of_mercury'] = array(
+    'unit_id' => 407,
+    'factor' => 3386.388,
+    'single' => 'Inch of mercury',
+    'plural' => 'Inches of mercury',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,408, "98066.5", "Kilogram-forces/sq.centimeter", "Kilograms-forces/sq.centimeter", "" _
+  $units['Kilogram-forces/sq.centimeter'] = array(
+    'unit_id' => 408,
+    'factor' => 98066.5,
+    'single' => 'Kilogram-forces/sq.centimeter',
+    'plural' => 'Kilograms-forces/sq.centimeter',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,409, "9.80665", "Kilogram-forces/sq.meter", "Kilograms-forces/sq.meter", "" _
+  $units['kilogram_forces_sq_meter'] = array(
+    'unit_id' => 409,
+    'factor' => 9.80665,
+    'single' => 'Kilogram-forces/sq.meter',
+    'plural' => 'Kilograms-forces/sq.meter',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,410, "1e3", "Kilonewton/sq.meter", "Kilonewtons/sq.meter", "" _
+  $units['kilonewton_sq_meter'] = array(
+    'unit_id' => 410,
+    'factor' => 1e3,
+    'single' => 'Kilonewton/sq.meter',
+    'plural' => 'Kilonewtons/sq.meter',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,411, "1e9", "Kilonewton/sq.millimeter", "Kilonewtons/sq.millimeter", "" _
+  $units['kilonewton_sq_millimeter'] = array(
+    'unit_id' => 411,
+    'factor' => 1e9,
+    'single' => 'Kilonewton/sq.millimeter',
+    'plural' => 'Kilonewtons/sq.millimeter',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,412, "1000", "Kilopascal", "Kilopascals", "kPa" _
+  $units['kilopascal'] = array(
+    'unit_id' => 412,
+    'factor' => 1000,
+    'single' => 'Kilopascal',
+    'plural' => 'Kilopascals',
+    'abbrev' => 'kPa',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,413, "9806.65", "Meter of water", "Meters of water", "" _
+  $units['meter_of_water'] = array(
+    'unit_id' => 413,
+    'factor' => 9806.65,
+    'single' => 'Meter of water',
+    'plural' => 'Meters of water',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,414, "100", "Millibar", "Millibars", "" _
+  $units['millibar'] = array(
+    'unit_id' => 414,
+    'factor' => 100,
+    'single' => 'Millibar',
+    'plural' => 'Millibars',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,415, "133.322", "Millimeter of mercury", "Millimeters of mercury", "" _
+  $units['millimeter_of_mercury'] = array(
+    'unit_id' => 415,
+    'factor' => 133.322,
+    'single' => 'Millimeter of mercury',
+    'plural' => 'Millimeters of mercury',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,416, "9.80665", "Millimeter of Water", "Millimeters of Water", "" _
+  $units['millimeter_of_water'] = array(
+    'unit_id' => 416,
+    'factor' => 9.80665,
+    'single' => 'Millimeter of Water',
+    'plural' => 'Millimeters of Water',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,417, "1e4", "Newton/sq.cm", "Newtons/sq.cm", "" _
+  $units['newtons_sq_cm'] = array(
+    'unit_id' => 417,
+    'factor' => 1e4,
+    'single' => 'Newton/sq.cm',
+    'plural' => 'Newtons/sq.cm',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,418, "1", "Newton/sq.meter or Pascal", "Newtons/sq.meter or Pascals", "Pa" _
+  $units['newton_sq_meter_or_pascal'] = array(
+    'unit_id' => 418,
+    'factor' => 1,
+    'single' => 'Newton/sq.meter or Pascal',
+    'plural' => 'Newtons/sq.meter or Pascals',
+    'abbrev' => 'Pa',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,419, "1e6", "Newton/sq.mm", "Newtons/sq.mm", "" _
+  $units['newton_sq_mm'] = array(
+    'unit_id' => 419,
+    'factor' => 1e6,
+    'single' => 'Newton/sq.mm',
+    'plural' => 'Newtons/sq.mm',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,420, "47.880", "Pound-force/sq.foot", "Pounds-force/sq.foot", "" _
+  $units['pound_force_sq_foot'] = array(
+    'unit_id' => 420,
+    'factor' => 47.880,
+    'single' => 'Pound-force/sq.foot',
+    'plural' => 'Pounds-force/sq.foot',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,421, "6894.757", "Pound-force/sq.inch", "Pounds-force/sq.inch", "psi" _
+  $units['pound_force_sq_inch'] = array(
+    'unit_id' => 421,
+    'factor' => 6894.757,
+    'single' => 'Pound-force/sq.inch',
+    'plural' => 'Pounds-force/sq.inch',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,422, "107251", "Ton (UK)-force/sq.foot", "Tons (UK)-force/sq.foot", "" _
+  $units['ton_uk_force_sq_foot'] = array(
+    'unit_id' => 422,
+    'factor' => 107251,
+    'single' => 'Ton (UK)-force/sq.foot',
+    'plural' => 'Tons (UK)-force/sq.foot',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,423, "15444300", "Ton (UK)-force/sq.inch", "Tons (UK)-force/sq.inch", "" _
+  $units['ton_uk_force_sq_inch'] = array(
+    'unit_id' => 423,
+    'factor' => 15444300,
+    'single' => 'Ton (UK)-force/sq.inch',
+    'plural' => 'Tons (UK)-force/sq.inch',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,424, "95760", "Ton (US)-force/sq.foot", "Ttons (US)-force/sq.foot", "" _
+  $units['ton_us_force_sq_foot'] = array(
+    'unit_id' => 424,
+    'factor' => 95760,
+    'single' => 'Ton (US)-force/sq.foot',
+    'plural' => 'Tons (US)-force/sq.foot',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,425, "13789500", "Ton (US)-force/sq.inch", "Ttons (US)-force/sq.inch", "" _
+  $units['ton_us_force_sq_inch'] = array(
+    'unit_id' => 425,
+    'factor' => 13789500,
+    'single' => 'Ton (US)-force/sq.inch',
+    'plural' => 'Tons (US)-force/sq.inch',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,426, "98066500", "Ton-force/Sq.cm", "Tonnes-force/sq.cm", "" _
+  $units['ton_force_sq_cm'] = array(
+    'unit_id' => 426,
+    'factor' => 98066500,
+    'single' => 'Ton-force/Sq.cm',
+    'plural' => 'Tonnes-force/Sq.cm',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,427, "9806.65", "Ton-force/Sq.Meter", "Tonnes-force/sq.meter", "" _
+  $units['ton_force_sq_meter'] = array(
+    'unit_id' => 427,
+    'factor' => 9806.65,
+    'single' => 'Ton-force/Sq.Meter',
+    'plural' => 'Tonnes-force/Sq.Meter',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+
+  //,428, "133.322", "Torr (mm Hg 0∞C)", "Torr (mm Hg 0∞C)", "" _
+  $units['torr_mm_hg'] = array(
+    'unit_id' => 428,
+    'factor' => 133.322,
+    'single' => 'Torr (mm Hg 0∞C)',
+    'plural' => 'Torr (mm Hg 0∞C)',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Pressure',
+      'id' => '400',
+    ),
+  );
+
+  return $units;
+
+
+}
+
+function _build_weight_1_list() {
+
+  $units = array();
+
+  //,501, "1e-3", "Gram", "Grams", "gm" _
+  $units['gram'] = array(
+    'unit_id' => 501,
+    'factor' => 1e-3,
+    'single' => 'Gram',
+    'plural' => 'Grams',
+    'abbrev' => 'gm',
+    'domain' => array(
+      'name' => 'Weight',
+      'id' => '500',
+    ), //,array("500", "Weight",508,502,"" _
+  );
+
+  //,502, "45.359237", "Cwt (US)", "Cwt (US)", "" _
+  $units['cwt_us'] = array(
+    'unit_id' => 502,
+    'factor' => 45.359237,
+    'single' => 'Cwt (US)',
+    'plural' => 'Cwt (US)',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Weight',
+      'id' => '500',
+    ), //,array("500", "Weight",508,502,"" _
+  );
+
+
+  //,503, "1", "Kilogram", "Kilograms", "kg" _
+  $units['kilogram'] = array(
+    'unit_id' => 503,
+    'factor' => 1,
+    'single' => 'Kilogram',
+    'plural' => 'Kilograms',
+    'abbrev' => 'kg',
+    'domain' => array(
+      'name' => 'Weight',
+      'id' => '500',
+    ), //,array("500", "Weight",508,502,"" _
+  );
+
+
+  //,504, "0.028349523125", "Ounce (avoirdupois)", "Ounces (avoirdupois)", "oz" _
+  $units['ounce_avoirdupois'] = array(
+    'unit_id' => 504,
+    'factor' => 0.028349523125,
+    'single' => 'Ounce (avoirdupois)',
+    'plural' => 'Ounces (avoirdupois)',
+    'abbrev' => 'oz',
+    'domain' => array(
+      'name' => 'Weight',
+      'id' => '500',
+    ), //,array("500", "Weight",508,502,"" _
+  );
+
+
+  //,505, "0.45359237", "Pound (avoirdupois)", "Pounds (avoirdupois)", "lbs" _
+  $units['pound_avoirdupois'] = array(
+    'unit_id' => 505,
+    'factor' => 0.45359237,
+    'single' => 'Pound (avoirdupois)',
+    'plural' => 'Pounds (avoirdupois)',
+    'abbrev' => 'lbs',
+    'domain' => array(
+      'name' => 'Weight',
+      'id' => '500',
+    ), //,array("500", "Weight",508,502,"" _
+  );
+
+
+  //,506, "1016.0469088", "Ton (UK or long)", "Tons (UK or long)", "" _
+  $units['ton_uk_or_long)'] = array(
+    'unit_id' => 506,
+    'factor' => 1016.0469088,
+    'single' => 'Ton (UK or long)',
+    'plural' => 'Ton (UK or long)',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Weight',
+      'id' => '500',
+    ), //,array("500", "Weight",508,502,"" _
+  );
+
+
+  //,507, "907.18474", "Ton (US or short)", "Tons (US or short)", "" _
+  $units['Ton_us_or_short'] = array(
+    'unit_id' => 507,
+    'factor' => 907.18474,
+    'single' => 'Ton (US or short)',
+    'plural' => 'Ton (US or short)',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Weight',
+      'id' => '500',
+    ), //,array("500", "Weight",508,502,"" _
+  );
+
+
+  //,508, "1000", "Ton (metric)", "Tons (metric)", "" _
+  $units['ton_metric'] = array(
+    'unit_id' => 508,
+    'factor' => 1000,
+    'single' => 'Ton (metric)',
+    'plural' => 'Ton (metric)',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Weight',
+      'id' => '500',
+    ), //,array("500", "Weight",508,502,"" _
+  );
+
+
+
+  return $units;
+
+}
+
+function _build_density_list() {
+
+  $units = array();
+
+  //,601, "1e-3", "Gram/Liter", "Grams/Liter", "" _
+  $units['gram_liter'] = array(
+    'unit_id' => 601,
+    'factor' => 1e-3,
+    'single' => 'Gram/Liter',
+    'plural' => 'Grams/Liter',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Density',
+      'id' => '600',
+    ), //,array("600", "Density", 607,602,"" _
+  );
+
+
+
+  //,602, "1", "Kilogram/Liter", "Kilograms/Liter", "" _
+  $units['kilogram_liter'] = array(
+    'unit_id' => 602,
+    'factor' => 1,
+    'single' => 'Kilogram/Liter',
+    'plural' => 'Kilograms/Liter',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Density',
+      'id' => '600',
+    ), //,array("600", "Density", 607,602,"" _
+  );
+
+
+  //,603, "1e-6", "Milligram/Liter", "Milligrams/Liter", "" _
+  $units['milligram_liter'] = array(
+    'unit_id' => 603,
+    'factor' => 1e-6,
+    'single' => 'Milligram/Liter',
+    'plural' => 'Milligrams/Liter',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Density',
+      'id' => '600',
+    ), //,array("600", "Density", 607,602,"" _
+  );
+
+
+  //,604, "1.729994044", "Ounce/Cubic Inch", "Ounces/Cubic Inch", "" _
+  $units['ounce_cubic_inch'] = array(
+    'unit_id' => 604,
+    'factor' => 1.729994044,
+    'single' => 'Ounce/Cubic Inch',
+    'plural' => 'Ounces/Cubic Inch',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Density',
+      'id' => '600',
+    ), //,array("600", "Density", 607,602,"" _
+  );
+
+
+  //,605, "0.006236023", "Ounce/Gallon (UK)", "Ounces/Gallon (UK)", "" _
+  $units['ounce_gallon_uk'] = array(
+    'unit_id' => 605,
+    'factor' => 0.006236023,
+    'single' => 'Ounce/Gallon (UK)',
+    'plural' => 'Ounces/Gallon (UK)',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Density',
+      'id' => '600',
+    ), //,array("600", "Density", 607,602,"" _
+  );
+
+
+  //,606, "0.007489152", "Ounce/Gallon (US)", "Ounces/Gallon (US)", "" _
+  $units['ounce_gallon_us'] = array(
+    'unit_id' => 606,
+    'factor' => 0.007489152,
+    'single' => 'Ounce/Gallon (US)',
+    'plural' => 'Ounces/Gallon (US)',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Density',
+      'id' => '600',
+    ), //,array("600", "Density", 607,602,"" _
+  );
+
+
+  //,607, "27.679904", "Pound/Cubic Inch", "Pounds/Cubic Inch", "" _
+  $units['pound_cubic_inch'] = array(
+    'unit_id' => 607,
+    'factor' => 27.679904,
+    'single' => 'Pound/Cubic Inch',
+    'plural' => 'Pounds/Cubic Inch',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Density',
+      'id' => '600',
+    ), //,array("600", "Density", 607,602,"" _
+  );
+
+
+  //,608, "0.016018463", "Pound/Cubic Foot", "Pounds/Cubic Foot", "" _
+  $units['pound_cubic_foot'] = array(
+    'unit_id' => 608,
+    'factor' => 0.016018463,
+    'single' => 'Pound/Cubic Foot',
+    'plural' => 'Pounds/Cubic Foot',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Density',
+      'id' => '600',
+    ), //,array("600", "Density", 607,602,"" _
+  );
+
+
+  //,609, "0.099776373", "Pound/Gallon (UK)", "Pounds/Gallon (UK)", "" _
+  $units['pound_gallon_uk'] = array(
+    'unit_id' => 609,
+    'factor' => 0.099776373,
+    'single' => 'Pound/Gallon (UK)',
+    'plural' => 'Pounds/Gallon (UK)',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Density',
+      'id' => '600',
+    ), //,array("600", "Density", 607,602,"" _
+  );
+
+
+  //,610, "0.119826427", "Pound/Gallon (US)", "Pounds/Gallon (US)", "" _
+  $units['pound_gallon_us'] = array(
+    'unit_id' => 610,
+    'factor' => 0.119826427,
+    'single' => 'Pound/Gallon (US)',
+    'plural' => 'Pounds/Gallon (US)',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Density',
+      'id' => '600',
+    ), //,array("600", "Density", 607,602,"" _
+  );
+
+
+  //,611, "1.328939184", "Ton (UK)/cubic yard", "Tons (UK)/Cubic Yard", "" _
+  $units['ton_uk_cubic_yard'] = array(
+    'unit_id' => 611,
+    'factor' => 1.328939184,
+    'single' => 'Ton (UK)/cubic yard',
+    'plural' => 'Tons (UK)/cubic yard',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Density',
+      'id' => '600',
+    ), //,array("600", "Density", 607,602,"" _
+  );
+
+
+  //,612, "1.186552843", "Ton (US)/cubic yard", "Tons (US)/Cubic Yard", "ton" _
+  $units['ton_us_cubic_yard'] = array(
+    'unit_id' => 612,
+    'factor' => 1.186552843,
+    'single' => 'Ton (US)/cubic yard',
+    'plural' => 'Tons (US)/cubic yard',
+    'abbrev' => 'ton',
+    'domain' => array(
+      'name' => 'Density',
+      'id' => '600',
+    ), //,array("600", "Density", 607,602,"" _
+  );
+
+
+  return $units;
+
+}
+
+function _build_weight_2_list() {
+
+  $units = array();
+
+  //,902, "45.359237", "Cwt", "Cwt", "" _
+  $units['cwt'] = array(
+    'unit_id' => 902,
+    'factor' => 45.359237,
+    'single' => 'Cwt',
+    'plural' => 'Cwt',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Weight',
+      'id' => '900',
+    ), //,array("900", "Weight",908,902,"" _
+  );
+
+
+  //,907, "907.18474", "Short Ton", "Short Tons", "" _
+  $units['short_ton'] = array(
+    'unit_id' => 907,
+    'factor' => 907.18474,
+    'single' => 'Short Ton',
+    'plural' => 'Short Tons',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Weight',
+      'id' => '900',
+    ), //,array("900", "Weight",908,902,"" _
+  );
+
+
+  //,908, "1000", "Metric Ton", "Metric Tons", "" _
+  $units['metric_ton'] = array(
+    'unit_id' => 908,
+    'factor' => 1000,
+    'single' => 'Metric Ton',
+    'plural' => 'Metric Tons',
+    'abbrev' => '',
+    'domain' => array(
+      'name' => 'Weight',
+      'id' => '900',
+    ), //,array("900", "Weight",908,902,"" _
+  );
+
+
+  return $units;
+}
+
+
+
+
+/**
+ * Implements hook_menu().
+ */
+function paper_calculators_menu() {
+
+  $items = array();
+
+
+  $items['calc/message_js'] = array(
+    'page callback' => 'calc_message_js',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+
+  $items['paper-tools/paper-calculators/area-unit-conversion'] = array(
+    'title' => 'Area Unit Conversion',
+    'page callback' => 'area_unit_conversion_form_page',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  $items['paper-tools/paper-calculators/density-unit-conversion'] = array(
+    'title' => 'Density Unit Conversion',
+    'page callback' => 'density_unit_conversion_form_page',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  $items['paper-tools/paper-calculators/length-unit-conversion'] = array(
+    'title' => 'Length Unit Conversion',
+    'page callback' => 'length_unit_conversion_form_page',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  $items['paper-tools/paper-calculators/linear-feet-yard'] = array(
+    'title' => 'Linear Feet/Yard',
+    'page callback' => 'linear_feet_yard_form_page',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+
+  $items['paper-tools/paper-calculators/m-weight'] = array(
+    'title' => 'M Weight',
+    'page callback' => 'm_weight_form_page',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  $items['paper-tools/paper-calculators/metric-conversion-table'] = array(
+    'title' => 'Metric Conversion Table',
+    'page callback' => 'metric_conversion_form_page',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  $items['paper-tools/paper-calculators/msi-msf'] = array(
+    'title' => 'MSI/MSF',
+    'page callback' => 'msi_msf_form_page',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  $items['paper-tools/paper-calculators/pressure-unit-conversion'] = array(
+    'title' => 'Pressure Unit Conversion',
+    'page callback' => 'pressure_unit_conversion_form_page',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+
+  $items['paper-tools/paper-calculators/roll-weight'] = array(
+    'title' => 'Roll Weight',
+    'page callback' => 'roll_weight_form_page',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  $items['paper-tools/paper-calculators/usage'] = array(
+    'title' => 'Usage',
+    'page callback' => 'usage_form_page',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  $items['paper-tools/paper-calculators/unit-price-converter'] = array(
+    'title' => 'Unit Price Converter',
+    'page callback' => 'unit_price_converter_form_page',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  $items['paper-tools/paper-calculators/volume-unit-conversion'] = array(
+    'title' => 'Volume Unit Conversion',
+    'page callback' => 'volume_unit_conversion_form_page',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+
+  $items['paper-tools/paper-calculators/weight-unit-conversion'] = array(
+    'title' => 'Weight Unit Conversion',
+    'page callback' => 'weight_unit_conversion_form_page',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  return $items;
+}
+
+
+//added '&' to second argument to be Drupal 7 compatible.
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function paper_calculators_form_alter(&$form, &$form_state, $form_id) {
+
+
+  switch ($form_id) {
+    case 'm_weight_form':
+    case 'usage_form':
+    case 'roll_weight_form':
+    case 'linear_feet_yard_form':
+    case 'msi_msf_form':
+    case 'length_unit_conversion_form':
+    case 'area_unit_conversion_form':
+    case 'volume_unit_conversion_form':
+    case 'pressure_unit_conversion_form':
+    case 'weight_unit_conversion_form':
+    case 'density_unit_conversion_form':
+    case 'metric_conversion_form':
+    case 'unit_price_converter_form':
+
+      $form['#after_build'][] = 'paper_calculators_after_build';
+      $form['#submit'][] = 'paper_calculators_form_submit';
+      $form['#validate'][] = 'paper_calculators_form_validate';
+
+
+  }
+}
+
+
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function paper_calculators_after_build(&$form, $form_state) {
+
+  if ($form['form_id']['#value'] == 'area_unit_conversion_form') {
+
+
+    //do something
+
+  }
+  //area_unit_conversion_form
+
+  return $form;
+
+}
+
+
+
+
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function paper_calculators_form_submit($form, &$form_state) {
+  //function other() {
+
+  // This code is executed, while the form is submitted. There's
+  // a wide range of possible operations to execute here, such as
+  // process and store settings, enable extra modules, or save
+  // contents to the new site (unless the operations are too
+  // expensive: the Batch API is a good choice for such operations,
+  // but it needs to be coded inside hook_profile_tasks(), not
+  // here).
+
+  // In this example profile, we just store the submitted text to
+  // a temporary variable, to be used in further tasks.
+  //variable_set('example_submitted_text', $form_state['values']['example_text']);
+
+  $values = $form_state['values'];
+  $clicked_button = $form_state['clicked_button']['#id'];
+
+
+
+  switch ($form['#id']) {
+    case 'm-weight-form':
+
+      if ($clicked_button == 'edit-button-1') {
+
+        variable_set('mw_length', '');
+        variable_set('mw_width', '');
+        variable_set('mw_basis', '');
+        variable_set('mw_grade', '950');
+
+        break;
+      }
+
+
+
+      break;
+    case 'usage-form':
+
+      if ($clicked_button == 'edit-button-1') {
+
+        variable_set('usage_length', '');
+        variable_set('usage_width', '');
+        variable_set('usage_basis_1', '');
+        variable_set('usage_basis_2', '');
+        variable_set('usage_basis_3', '');
+        variable_set('usage_basis_4', '');
+        variable_set('usage_pages_1', '');
+        variable_set('usage_pages_2', '');
+        variable_set('usage_pages_3', '');
+        variable_set('usage_pages_4', '');
+        variable_set('usage_waste_1', '');
+        variable_set('usage_waste_2', '');
+        variable_set('usage_waste_3', '');
+        variable_set('usage_waste_4', '');
+        variable_set('usage_quantity', '');
+
+        break;
+      }
+
+
+      break;
+    case 'roll-weight-form': //fix totals tjs 2011May12
+      if ($clicked_button == 'edit-button-1') {
+
+
+        variable_set('rw_diameter', '');
+        variable_set('rw_core', '');
+        variable_set('rw_width', '');
+        variable_set('rw_finish', '18');
+
+        break;
+      }
+
+
+
+
+      break;
+    case 'linear-feet-yard-form':
+
+      if ($clicked_button == 'edit-button-1') {
+
+        variable_set('lfy_roll_weight', '');
+        variable_set('lfy_roll_width', '');
+        variable_set('lfy_basis_weight', '');
+        variable_set('lfy_grade_basis', 3300);
+
+        break;
+      }
+
+
+
+      break;
+    case 'msi-msf-form':
+
+      if ($clicked_button == 'edit-button-1') {
+
+
+        variable_set('msi_roll_width', '');
+        variable_set('msi_roll_weight', '');
+        variable_set('msi_grade', 3300);
+        variable_set('msi_basis', '' );
+
+        break;
+
+      }
+
+
+
+
+      break;
+    case 'length-unit-conversion-form':
+    case 'area-unit-conversion-form':
+    case 'volume-unit-conversion-form':
+    case 'pressure-unit-conversion-form':
+    case 'weight-unit-conversion-form':
+    case 'density-unit-conversion-form':
+
+
+      global $_paper_calculators_units_om;
+
+      //$round_to_four = TRUE;
+
+      switch ($form['#id']) {
+
+        case 'length-unit-conversion-form':
+
+          if ($clicked_button == 'edit-button-1') {
+
+
+            variable_set('luc_from_unit', 103);
+            variable_set('luc_to_unit', 106);
+            variable_set('luc_quantity', 1);
+            variable_set('luc_multiple', '');
+
+
+            break;
+          }
+
+
+          break;
+        case 'area-unit-conversion-form':
+
+          if ($clicked_button == 'edit-button-1') {
+
+            variable_set('auc_from_unit', 205);
+            variable_set('auc_to_unit', 208);
+            variable_set('auc_quantity', 1);
+            variable_set('auc_multiple', '');
+
+            break;
+          }
+
+
+
+          break;
+        case 'volume-unit-conversion-form':
+
+
+          if ($clicked_button == 'edit-button-1') {
+
+
+            variable_set('vuc_from_unit', 306);
+            variable_set('vuc_to_unit', 304);
+            variable_set('vuc_quantity', 1);
+            variable_set('vuc_multiple', '');
+
+            break;
+          }
+
+
+
+          break;
+        case 'pressure-unit-conversion-form':
+
+
+          if ($clicked_button == 'edit-button-1') {
+
+
+            variable_set('puc_from_unit', 421);
+            variable_set('puc_to_unit', 418);
+            variable_set('puc_quantity', 1);
+            variable_set('puc_multiple', '');
+
+            break;
+          }
+
+
+
+          break;
+        case 'weight-unit-conversion-form':
+
+
+
+          if ($clicked_button == 'edit-button-1') {
+
+
+            variable_set('wuc_from_unit', 508);
+            variable_set('wuc_to_unit', 502);
+            variable_set('wuc_quantity', 1);
+            variable_set('wuc_multiple', '');
+
+            break;
+          }
+
+
+
+          break;
+        case 'density-unit-conversion-form':
+
+
+          if ($clicked_button == 'edit-button-1') {
+
+
+            variable_set('duc_from_unit', 607);
+            variable_set('duc_to_unit', 602);
+            variable_set('duc_quantity', 1);
+            variable_set('duc_multiple', '');
+
+
+            break;
+          }
+
+
+
+          break;
+
+        default:
+          break;
+      }
+
+
+      if ($clicked_button == 'edit-button-1') {
+
+        break;
+      }
+
+
+
+
+      break;
+    case 'metric-conversion-form':
+
+
+      if ($clicked_button == 'edit-button-1') {
+
+
+        variable_set('metric_bs-wgt', '');
+        variable_set('grade', 950);
+        variable_set('multiplier', '');
+
+        break;
+      }
+
+
+
+      break;
+    case 'unit-price-converter-form':
+
+      if ($clicked_button == 'edit-button-1') {
+
+        variable_set('upc_quantity', 1 );
+        variable_set('upc_from_unit', 908);
+
+        break;
+      }
+
+
+
+      break;
+
+    default:
+
+      break;
+  }
+
+
+
+
+}
+
+
+
+
+
+
+
+/**
+ * Implementation of hook_perm().
+ *
+ * Ojo los espacios blancos !  tjs 2011 March 7
+ *
+ * These permission may not be necessary 2011 May 10
+ *
+ */
+//function paper_calculators_perm() {  Drupal 7 change 2013 Nov 14
+function hook_permission() {
+  return array(
+    'administer paper calculators',
+    'create paper calculators',
+    'edit own paper calculators',
+    'edit any paper calculators',
+    'delete own paper calculators',
+    'delete any paper calculators',
+    //'use paper calculators autocomplete',
+    //'use status refresh',
+  );
+}
+
+
+/**
+ * Implementation of hook_access().
+ *
+ * May not be necessary 2011 May 10
+ */
+/*function paper_calculators_access($op, $node, $account) {
+
+ if (is_object($node)) {
+ $is_author = $account->uid == $node->uid;
+ }
+
+ switch ($op) {
+ case 'administer':
+ // Allow if user's role has 'administer station access' permission.
+ return user_access('administer paper calculators', $account);
+ case 'create':
+ // Allow if user's role has 'create event station' permission.
+ return user_access('create paper calculators', $account);
+ case 'update':
+ // Allow if user's role has 'edit own event station' permission and user is
+ // the author; or if the user's role has 'edit any event station' permission.
+ return user_access('edit own paper calculators', $account) && $is_author ||
+ user_access('edit any paper calculators', $account);
+ case 'delete':
+ // Allow if user's role has 'delete own event station' permission and user is
+ // the author; or if the user's role has 'delete any event station' permission.
+ return user_access('delete own paper calculators', $account) && $is_author ||
+ user_access('delete any paper calculators', $account);
+ }
+ }*/
+
+
+
+
+
+
+
+
+
+
+/**
+ * Implementation of hook_nodeapi()
+ *
+ *
+ * may not need this function 2011 May 10
+ */
+////function paper_calculators_nodeapi(&$node, $op, $teaser, $page) {
+////    global $user;
+////switch ($op) {
+// The 'view' operation means the node is about to be displayed.
+////    case 'view':
+// Abort if the user is an anonymous user (not logged in) or
+// if the node is not being displayed on a page by itself
+// (for example, it could be in a node listing or search result).
+////    if ($user->uid == 0 || !$page) {
+
+////    }
+
+// Show the widget, but only if the full node is being displayed.
+////    if (!$teaser) {
+/*$node->content['plusone_widget'] = array(
+ '#value' => plusone_widget($node->nid),
+ '#weight' => 100,
+ );*/
+////   }
+////   break;
+
+////    case 'delete':
+// Node is being deleted; delete associated vote data.
+//db_query('DELETE FROM {plusone_vote} WHERE nid = %d', $node->nid);
+////    break;
+
+////    }
+
+/**Item
+ The item element is formatted in the same way as other input element types like textfield or
+ select field, but it lacks the input field.
+ $form['removed'] = array(
+ '#title' => t('Shoe size'),
+ '#type' => 'item',
+ '#description' => t('This question has been removed because the law prohibits us
+ from asking your shoe size.'),
+ );*/
+
+////}
+
+
+
+
+/**
+ * Implementation of hook_form_validate().
+ */
+//form_validate($elements, &$form_state, $form_id = NULL)
+
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function paper_calculators_form_validate($form, &$form_state, $form_id = NULL) {
+  // ensure that registration does not already exist.  Look at title.
+  // If registration already exists then transform into update.
+
+  $values = $form_state['values'];
+  $clicked_button = $form_state['clicked_button']['#id'];
+
+  switch ($form['#id']) {
+    case 'm-weight-form':
+
+      if ($clicked_button == 'edit-button-1') {
+
+        break;
+      }
+
+      $length = $values['dimensions']['length'];
+      $width = $values['dimensions']['width'];
+      $basis_weight = $values['basis_weight'];
+
+
+
+      if ($length <= 0) {
+        //EntryError
+        form_set_error('dimensions][length', "The value for Length is invalid.");
+      }
+
+      if ($width <= 0) {
+        //EntryError
+        form_set_error('dimensions][width', "The value for Width is invalid.");
+      }
+
+      if ($basis_weight <= 0) {
+
+        form_set_error('basis_weight', "The value for Basis Weight is invalid.");
+      }
+
+
+      break;
+    case 'usage-form':
+
+      if ($clicked_button == 'edit-button-1') {
+
+        break;
+      }
+
+      $length = $values['dimensions']['length'];
+      $width = $values['dimensions']['width'];
+
+
+      if ($width <= 0) {
+        form_set_error('dimensions][width', "The value for Width is invalid.");
+      }
+
+
+      if ($length <= 0) {
+        form_set_error('dimensions][length', "The value for Length is invalid.");
+      }
+
+      $quantity = $values['quantity'];
+      if ($quantity <= 0) {
+
+        form_set_error('quantity', "The value  for Quantity is invalid.");
+
+      }
+
+
+
+
+      $page_1 = $values['cover_1']['pages'];
+
+      /* if (empty($page_1)) {
+
+       form_set_error('cover_1][pages', "The value is invalid.");
+       }*/
+
+
+
+      $page_2 = $values['cover_2']['pages'];
+
+      /*if (empty($page_1)) {
+
+       form_set_error('cover_1][pages', "The value is invalid.");
+       }*/
+
+
+      $page_3 = $values['text_1']['pages'];
+
+      /*         if (empty($page_1)) {
+
+       form_set_error('cover_1][pages', "The value is invalid.");
+       }*/
+
+
+
+      $page_4 = $values['text_2']['pages'];
+
+
+
+      if ($page_1 == 0 && $page_2 == 0 && $page_3 == 0 && $page_4 == 0 ) {
+
+        //Entryerror "the number of pages
+        form_set_error('cover_1', "Please provide a value for pages.");
+      }
+
+
+      break;
+    case 'roll-weight-form':
+
+      if ($clicked_button == 'edit-button-1') {
+
+        break;
+      }
+
+
+      $roll_diameter = $values['diameter'];
+      if ($roll_diameter <= 0) {
+
+        form_set_error('diameter', "The value for Diameter is invalid.");
+      }
+
+
+      $roll_core = $values['core_size'];
+      if ($roll_core <= 0) {
+        form_set_error('core_size', "The value for Core Size is invalid.");
+      }
+
+      $roll_width = $values['roll_width'];
+      if ($roll_width <= 0) {
+        form_set_error('roll_width', "The value for Roll Width is invalid.");
+      }
+
+      if ($roll_diameter > 0   && $roll_core > 0 && $roll_core >= $roll_diameter) {
+
+        //$error = "Roll Diameter has to be larger than Core Size.
+        form_set_error('Roll Weight', 'Roll Diameter has to be larger than Core Size');
+      }
+
+
+
+
+
+      break;
+    case 'linear-feet-yard-form':
+    case 'msi-msf-form':
+
+      if ($clicked_button == 'edit-button-1') {
+
+        break;
+      }
+
+
+
+      $roll_weight = $values['roll_weight'];
+      if ($roll_weight <= 0) {
+
+        form_set_error('roll_weight', 'The value for Roll Weight is invalid.');
+      }
+
+
+      $roll_width = $values['roll_width'];
+      if ($roll_width <= 0) {
+
+        form_set_error('roll_width', 'The value for Roll Width is invalid.');
+      }
+
+      $basis_weight = $values['basis_weight'];
+      if ($basis_weight <= 0) {
+
+        form_set_error('basis_weight', 'The value for Basis Weight is invalid.');
+      }
+
+
+      break;
+    case 'length-unit-conversion-form':
+    case 'area-unit-conversion-form':
+    case 'volume-unit-conversion-form':
+    case 'pressure-unit-conversion-form':
+    case 'weight-unit-conversion-form':
+    case 'density-unit-conversion-form':
+
+      if ($clicked_button == 'edit-button-1') {
+
+        break;
+      }
+
+      $quantity = $values['quantity'];
+
+      //2011 May 13
+      if (empty($quantity) || $quantity < 0) {
+        form_set_error('quantity', 'The value for Quantity is invalid.');
+      }
+
+      if ($quantity < 0.0000001) {
+
+        $quantity = 1; //default value
+      }
+
+      $multiplier = $values['multiplier'];
+
+
+      if ($multiplier < 0.0001 or $multiplier == 1.0) {
+
+        $multiplier = 0;
+        //$values['multiplier'] = 0;
+
+
+      }
+
+      $from_unit = $values['from_unit']; //dimx
+      $to_unit = $values['to_unit']; //dimy
+      if ($from_unit != 0 && $to_unit != 0 && $from_unit == $to_unit) {
+
+        $warning = "FROM and TO units are the same.";
+        form_set_error('From and To Units', $warning);
+      }
+
+      break;
+    case 'metric-conversion-form':
+
+      if ($clicked_button == 'edit-button-1') {
+
+        break;
+      }
+
+      $basis = $values['bs-wgt'];
+
+      if ($basis <= 0) {
+
+        //entryerror 'the Basis Weight'
+        form_set_error('bs-wgt', 'The value for Bs. Wgt is invalid');
+      }
+
+
+      $multiplier = $values['multiplier'];
+
+      if (empty($multiplier)) {
+
+        form_set_error('multiplier', 'The value for Multiplier is invalid.');
+
+      }
+
+      if ($multiplier < 0.0001 or $multiplier == 1.0) {
+
+        $multiplier = 0;
+      }
+
+      break;
+    case 'unit-price-converter-form':
+
+      if ($clicked_button == 'edit-button-1') {
+
+        break;
+      }
+
+      $quantity = $values['quantity'];
+      if (empty($quantity) || $quantity < 0) {
+        //entry error
+        form_set_error('quantity', 'The value for Quantity is invalid');
+      }
+
+      if ($quantity < 0.0000001) {
+
+        $quantity = 1.0; //default value
+      }
+
+
+      break;
+
+    default:
+
+      break;
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Process variables for event-registration.tpl.php.
+ *
+ * @see event-registration.tpl.php
+ * @see paper_calculators_theme()
+ *
+ */
+/*function template_preprocess_paper_calculators(&$variables) {
+
+ //dpm($variables);
+
+ //$variables['whole_form'] = drupal_render($variables['form']);
+
+
+ }*/
+
+
+
+function m_weight_instruction_2() {
+
+  return 'Please enter both dimensions and the Basis Weight.';
+
+}
+
+
+
+
+
+//function paper_calc_form_page($calc= null) {
+function area_unit_conversion_form_page() {
+
+  $output = '';
+  // Return the HTML generated from the $form data structure.
+  $output = drupal_get_form('area_unit_conversion_form');
+
+  return $output;
+
+}
+
+
+function area_unit_conversion_form($form) { //called() {
+  // Get metadata for this node type
+  // (we use it for labeling title and body fields).
+  // We defined this in event_station_node_info().
+  //$type = node_get_types('type', $node);
+
+
+  $form['title'] = array(
+    '#type' => 'item',
+    '#title' => check_plain(''), //check_plain($type->title_label),
+    '#value' => drupal_set_title(t('Area Unit Conversion Calculator')), //'paper calculators',
+    '#default_value' => '', //$node->title,
+    '#maxlength' => 255,
+  );
+
+
+  $form['fraction_as_decimal'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => fraction_as_decimal(),
+    //'#weight' => -10,
+  );
+
+
+
+  //The item element is formatted in the same way as other input element types like textfield or
+  //select field, but it lacks the input field.
+  $form['instructions'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => area_unit_conversion_instruction(),
+    //'#weight' => -10,
+  );
+
+
+
+  //Result =
+  $form['result'] = array(
+    //'#type' => 'hidden',
+    '#type' => 'markup',
+    '#prefix' => '<div class="calc-result" id="area-calc-result">',
+    '#title' => t('Result'),
+    '#value' => ' ',
+    '#suffix' => '</div>',
+  );
+
+
+  $from_unit_options = from_area_unit_options();
+
+  $form['from_unit'] = array(
+    '#type' => 'select',
+    '#title' => t('From Unit'),
+    '#default_value' => array(variable_get('auc_from_unit', 205)), //'Feet [ft]'),
+    '#options' => $from_unit_options,
+    '#description' => t(''),
+  );
+
+  $to_unit_options = to_area_unit_options();
+
+  $form['to_unit'] = array(
+    '#type' => 'select',
+    '#title' => t('To Unit'),
+    '#default_value' => array(variable_get('auc_to_unit', 208)), //'Meter [m]'),
+    '#options' => $to_unit_options,
+    '#description' => t(''),
+    //'#theme' => 'area unit conversion_select',
+  );
+
+  //$form['auc_quantity'] = array(
+  $form['quantity'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Quantity'),
+    '#default_value' => variable_get('auc_quantity', 1),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['multiplier'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Multiplier'),
+    '#default_value' => variable_get('auc_multiple', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['warning'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => 'Warning: The results are estimated. Actual numbers may vary.',
+    //'#weight' => -10,
+  );
+
+
+  /*
+   Changes for Drupal 7
+   See: https://drupal.org/node/224333#ahah-now-ajax
+   $form['submit']['button'] = array(
+   '#type' => 'submit',
+   '#value' => t('Calculate'),
+   '#ahah' => array(
+   'event' => 'click',
+   'path' => 'calc/message_js',
+   'wrapper' => 'area-calc-result',
+   'effect' => 'fade',
+   )
+   */
+
+  $form['submit']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Calculate'),
+    '#ajax' => array(
+      'event' => 'click',
+      'callback' => 'calc_message_js',
+      'wrapper' => 'area-calc-result',
+      'effect' => 'fade',
+    ),
+  );
+
+
+
+  $form['clear']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Clear all values'),
+  );
+
+  return $form;
+
+}
+
+
+
+
+
+function density_unit_conversion_form_page() {
+
+  $output = '';
+  // Return the HTML generated from the $form data structure.
+  $output = drupal_get_form('density_unit_conversion_form');
+
+  return $output;
+
+}
+
+
+function density_unit_conversion_form($form) {
+
+
+  // Get metadata for this node type
+  // (we use it for labeling title and body fields).
+  // We defined this in event_station_node_info().
+  //$type = node_get_types('type', $node);
+
+
+  $form['title'] = array(
+    '#type' => 'item',
+    '#title' => '',
+    '#value' => drupal_set_title(t('Density Unit Conversion Calculator')), //'paper calculators',
+    '#default_value' => '',
+    '#maxlength' => 255,
+  );
+
+
+  $form['fraction_as_decimal'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => fraction_as_decimal(),
+    //'#weight' => -10,
+  );
+
+
+  //The item element is formatted in the same way as other input element types like textfield or
+  //select field, but it lacks the input field.
+  $form['instructions'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => density_unit_conversion_instruction(),
+    //'#weight' => -10,
+  );
+
+
+
+  //Result =
+  $form['result'] = array(
+    //'#type' => 'hidden',
+    '#type' => 'markup',
+    '#prefix' => '<div class="calc-result" id="density-calc-result">',
+    '#title' => t('Result'),
+    '#value' => ' ',
+    '#suffix' => '</div>',
+  );
+
+
+  $from_unit_options = from_density_unit_options();
+
+  $form['from_unit'] = array(
+    '#type' => 'select',
+    '#title' => t('From Unit'),
+    '#default_value' => array(variable_get('duc_from_unit', 607)),
+    '#options' => $from_unit_options,
+    //'#default_value' => variable_get('from_unit', 'Feet [ft]'),
+    '#description' => t(''),
+  );
+
+  $to_unit_options = to_density_unit_options();
+
+  $form['to_unit'] = array(
+    '#type' => 'select',
+    '#title' => t('To Unit'),
+    '#default_value' => array(variable_get('duc_to_unit', 602)),
+    '#options' => $to_unit_options,
+    '#description' => t(''),
+    //'#theme' => 'density unit conversion_select',
+    //'#attributes' => array('event_station_nodes' => $station_info['event_station_nodes']),
+  );
+
+  $form['quantity'] = array(
+    //$form['w_quantity'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Quantity'),
+    '#default_value' => variable_get('duc_quantity', 1),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['multiplier'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Multiplier'),
+    '#default_value' => variable_get('duc_multiplier', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['warning'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => 'Warning: The results are estimated. Actual numbers may vary.',
+    //'#weight' => -10,
+  );
+
+
+  /*
+   Changes for Drupal 7
+   See: https://drupal.org/node/224333#ahah-now-ajax
+   $form['submit']['button'] = array(
+   '#type' => 'submit',
+   '#value' => t('Calculate'),
+   '#ahah' => array(
+   'event' => 'click',
+   'path' => 'calc/message_js',
+   'wrapper' => 'density-calc-result',
+   'effect' => 'fade',
+   )
+   );
+   */
+
+
+  $form['submit']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Calculate'),
+    '#ajax' => array(
+      'event' => 'click',
+      'callback' => 'calc_message_js',
+      'wrapper' => 'density-calc-result',
+      'effect' => 'fade',
+    ),
+  );
+
+
+
+
+  $form['clear']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Clear all values'),
+  );
+
+  return $form;
+
+}
+
+
+
+
+function length_unit_conversion_form_page() {
+
+  $output = '';
+  // Return the HTML generated from the $form data structure.
+  $output = drupal_get_form('length_unit_conversion_form');
+
+  return $output;
+
+}
+
+function length_unit_conversion_form($form) {
+
+
+  // Get metadata for this node type
+  // (we use it for labeling title and body fields).
+  // We defined this in event_station_node_info().
+  //$type = node_get_types('type', $node);
+
+
+  $form['title'] = array(
+    '#type' => 'item',
+    '#title' => '',
+    '#value' => drupal_set_title(t('Length Unit Conversion Calculator')), //'paper calculators',
+    '#default_value' => '',
+    '#maxlength' => 255,
+  );
+
+
+
+  $form['fraction_as_decimal'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => fraction_as_decimal(),
+    //'#weight' => -10,
+  );
+
+
+
+
+
+
+
+
+
+  //The item element is formatted in the same way as other input element types like textfield or
+  //select field, but it lacks the input field.
+  $form['instructions'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => length_unit_conversion_instruction(),
+    //'#weight' => -10,
+  );
+
+
+  //Result =
+  $form['result'] = array(
+    //'#type' => 'hidden',
+    '#type' => 'markup',
+    '#prefix' => '<div class="calc-result" id="length-calc-result">',
+    '#title' => t('Result'),
+    '#value' => ' ',
+    '#suffix' => '</div>',
+  );
+
+
+  $form['reciprocal'] = array(
+    '#type' => 'hidden',
+    '#prefix' => '<div class="reciprocal">',
+    '#title' => t('Reciprocal ='),
+    '#value' => '',
+    '#suffix' => '</div>',
+  );
+
+
+  $from_unit_options = from_length_unit_options();
+
+  $form['from_unit'] = array(
+    '#type' => 'select',
+    '#title' => t('From Unit'),
+    //'#default_value' =>
+    '#default_value' => array(variable_get('luc_from_unit', '103')), //array( '103'),
+    '#options' => $from_unit_options,
+    //'#default_value' => variable_get('from_unit', 'Feet [ft]'),
+    '#description' => t(''),
+  );
+
+  $to_unit_options = to_length_unit_options();
+
+  $form['to_unit'] = array(
+    '#type' => 'select',
+    '#title' => t('To Unit'),
+    '#default_value' => array(variable_get('luc_to_unit', '106')), //array('106'),//variable_get('to_unit', 'Meter [m]'),
+    '#options' => $to_unit_options,
+    '#description' => t(''),
+  );
+
+  $form['quantity'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Quantity'),
+    '#default_value' => variable_get('luc_quantity', 1),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['multiplier'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Multiplier'),
+    '#default_value' => variable_get('luc_multiple', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['warning'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    '#value' => 'Warning: The results are estimated. Actual numbers may vary.',
+  );
+
+  /*
+   Changes for Drupal 7
+   See: https://drupal.org/node/224333#ahah-now-ajax
+   $form['submit']['button'] = array(
+   '#type' => 'submit',
+   '#value' => t('Calculate'),
+   '#ahah' => array(
+   'event' => 'click',
+   'path' => 'calc/message_js',
+   'wrapper' => 'length-calc-result',
+   'effect' => 'fade',
+   )
+   );
+   */
+
+  $form['submit']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Calculate'),
+    '#ajax' => array(
+      'event' => 'click',
+      'callback' => 'calc_message_js',
+      'wrapper' => 'length-calc-result',
+      'effect' => 'fade',
+    ),
+  );
+
+  $form['clear']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Clear all values'),
+  );
+
+  return $form;
+
+}
+
+
+function linear_feet_yard_form_page() {
+
+  $output = '';
+  // Return the HTML generated from the $form data structure.
+  $output = drupal_get_form('linear_feet_yard_form');
+
+  return $output;
+
+}
+
+function linear_feet_yard_form($form) {
+
+
+  // Get metadata for this node type
+  // (we use it for labeling title and body fields).
+  // We defined this in event_station_node_info().
+  // $type = node_get_types('type', $node);
+
+
+  $form['title'] = array(
+    '#type' => 'item',
+    '#title' => '',
+    '#value' => drupal_set_title(t('Linear Feet Yard Calculator')), //'paper calculators',
+    '#default_value' => '',
+    '#maxlength' => 255,
+  );
+
+
+  $form['fraction_as_decimal'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => fraction_as_decimal(),
+    //'#weight' => -10,
+  );
+
+
+  //The item element is formatted in the same way as other input element types like textfield or
+  //select field, but it lacks the input field.
+  $form['instructions'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => linear_feet_yard_instruction(),
+    //'#weight' => -10,
+  );
+
+
+
+
+  //Result =
+  $form['result'] = array(
+    '#type' => 'markup',
+    '#prefix' => '<div class="calc-result" id="linear-calc-result">',
+    '#title' => t('Result'),
+    '#value' => ' ',
+    '#suffix' => '</div>',
+  );
+
+
+  //Linear Length Calculation
+  //Linear Feet =   26,400.00
+  //Linear Yards =   8,800.0
+  /*$form['linear_length'] = array(
+   '#type' => 'hidden',
+   '#prefix' => '<div class="linear_length_calculation">',
+   '#title' => t('Linear Length Calculation'),
+   '#value' => '',
+   '#suffix' => '</div>',
+   );
+
+   $form['linear_feet'] = array(
+   '#type' => 'hidden',
+   '#prefix' => '<div class="linear_feet">',
+   '#title' => t('Linear Feet ='),
+   '#value' => '',
+   '#suffix' => '</div>',
+   );
+
+   $form['linear_yards'] = array(
+   '#type' => 'hidden',
+   '#prefix' => '<div class="linear_yards">',
+   '#title' => t('Linear Yards ='),
+   '#value' => '',
+   '#suffix' => '</div>',
+   );*/
+
+
+
+
+
+
+  $form['grade_basis'] = array(
+    '#type' => 'select',
+    '#title' => t('Grade-Basis Size'),
+    '#options' => linear_grade_basis_options(),
+    '#default_value' => variable_get('lfy_grade_basis', 3300 ), //'Offset and Book'),
+    '#description' => t(''),
+    //'#theme' => 'linear_feet_yard_select',
+  );
+
+
+
+  $form['roll_weight'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Roll Weight'),
+    '#default_value' => variable_get('lfy_roll_weight', ' '),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['roll_width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Roll Width'),
+    '#default_value' => variable_get('lfy_roll_width', ' '),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['basis_weight'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Basis Weight'),
+    '#default_value' => variable_get('lfy_basis_weight', ' '),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['warning'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => 'Warning: The results are estimated. Actual numbers may vary.',
+    //'#weight' => -10,
+  );
+
+
+  /*
+   Changes for Drupal 7
+   See: https://drupal.org/node/224333#ahah-now-ajax
+   $form['submit']['button'] = array(
+   '#type' => 'submit',
+   '#value' => t('Calculate'),
+   '#ahah' => array(
+   'event' => 'click',
+   'path' => 'calc/message_js',
+   'wrapper' => 'linear-calc-result',
+   'effect' => 'fade',
+   )
+   );
+   */
+
+
+  $form['submit']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Calculate'),
+    '#ajax' => array(
+      'event' => 'click',
+      'callback' => 'calc_message_js',
+      'wrapper' => 'linear-calc-result',
+      'effect' => 'fade',
+    ),
+  );
+
+  $form['clear']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Clear all values'),
+  );
+
+  return $form;
+
+}
+
+
+
+
+
+function m_weight_form_page() {
+
+  $output = '';
+  // Return the HTML generated from the $form data structure.
+  $output = drupal_get_form('m_weight_form');
+
+  return $output;
+
+}
+
+function m_weight_form($form) {
+
+  // Get metadata for this node type
+  // (we use it for labeling title and body fields).
+  // We defined this in event_station_node_info().
+  //$type = node_get_types('type', $node);
+
+
+
+  $form['title'] = array(
+    '#type' => 'item',
+    '#title' => '',
+    '#value' => drupal_set_title(t('M Weight Calculator')), //'paper calculators',
+    '#default_value' => '',
+    '#maxlength' => 255,
+  );
+
+
+  $form['fraction_as_decimal'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => fraction_as_decimal(),
+    //'#weight' => -10,
+  );
+
+
+  $form['result'] = array(
+    '#type' => 'markup',
+    '#prefix' => '<div class="calc-result" id="mweight-calc-result">',
+    '#title' => t('Result'),
+    '#value' => ' ',
+    '#suffix' => '</div>',
+  );
+
+
+  $form['grade_basis_sizes'] = array(
+    '#type' => 'select',
+    '#title' => t('Grade-Basis Size'),
+    '#options' => m_grade_basis_size_options(),
+    '#default_value' => array(variable_get('mw_grade', '950')), //variable_get('grade_basis_sizes', 'Offset and Book (25X38 basis size)
+    '#description' => t(''),
+    //'#theme' => 'm_weight_select',
+  );
+
+
+  //The item element is formatted in the same way as other input element types like textfield or
+  //select field, but it lacks the input field.
+  $form['instructions'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => m_weight_instruction(),
+    //'#weight' => -10,
+  );
+
+
+  $form['dimensions'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Dimensions'),
+    '#tree' => TRUE,
+  );
+
+  $form['dimensions']['length'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Length'),
+    '#default_value' => variable_get('mw_length', ' '),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['dimensions']['multiplication'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => 'X',
+    //'#weight' => -10,
+  );
+
+
+  $form['dimensions']['width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Width'),
+    '#default_value' => variable_get('mw_width', ' '),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+
+  $form['basis_weight'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Basis Weight'),
+    '#default_value' => variable_get('mw_basis', ' '),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+
+
+
+  $form['warning'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => 'Warning: The results are estimated. Actual numbers may vary.',
+    //'#weight' => -10,
+  );
+
+  /*
+   Changes for Drupal 7
+   See: https://drupal.org/node/224333#ahah-now-ajax
+   $form['submit']['button'] = array(
+   '#type' => 'submit',
+   '#value' => t('Calculate'),
+   '#ahah' => array(
+   'event' => 'click',
+   'path' => 'calc/message_js',
+   'wrapper' => 'mweight-calc-result',
+   'effect' => 'fade',
+   )
+   );
+   */
+
+
+  $form['submit']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Calculate'),
+    '#ajax' => array(
+      'event' => 'click',
+      'callback' => 'calc_message_js',
+      'wrapper' => 'mweight-calc-result',
+      'effect' => 'fade',
+    ),
+  );
+
+
+
+  $form['clear']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Clear all values'),
+  );
+
+
+
+
+
+  return $form;
+
+
+}
+
+
+
+
+function metric_conversion_form_page() {
+
+  $output = '';
+  // Return the HTML generated from the $form data structure.
+  $output = drupal_get_form('metric_conversion_form');
+
+  return $output;
+
+}
+
+function metric_conversion_form($form) {
+
+
+  // Get metadata for this node type
+  // (we use it for labeling title and body fields).
+  // We defined this in event_station_node_info().
+  //$type = node_get_types('type', $node);
+
+
+
+
+
+
+
+
+  $form['title'] = array(
+    '#type' => 'item',
+    '#title' => '',
+    '#value' => drupal_set_title(t('Metric Conversion  Table Calculator')), //'paper calculators',
+    '#default_value' => '',
+    '#maxlength' => 255,
+  );
+
+
+  $form['fraction_as_decimal'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => fraction_as_decimal(),
+    //'#weight' => -10,
+  );
+
+  //The item element is formatted in the same way as other input element types like textfield or
+  //select field, but it lacks the input field.
+  $form['instructions'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => metric_conversion_table_instruction(),
+    //'#weight' => -10,
+  );
+
+
+
+  //US TO METRIC = 10 lbs = 15 g/m2
+
+
+  //METRIC TO US = 10 g/m2 = 7 lbs
+
+
+  //additional description to be hidden initially : NOTE: The term "lbs" refers to pounds per 500 sheets
+
+
+  //Result =
+  $form['result'] = array(
+    '#type' => 'markup',
+    '#prefix' => '<div class="calc-result" id="metric-calc-result">',
+    '#title' => t('Result'),
+    '#value' => ' ',
+    '#suffix' => '</div>',
+  );
+
+
+
+
+
+  $form['grade_basis_sizes'] = array(
+    '#type' => 'select',
+    '#title' => t('Grade-Basis Size'),
+    //'#options' => get_station_options($registration_event), //$station_options,
+    '#options' => metric_grade_basis_size_options(),
+    //'#required' => TRUE,
+    '#default_value' => array(variable_get('grade_basis_sizes', '950')), //'Offset and Book (25X38 basis size)'),
+    '#description' => t(''),
+    //'#theme' => 'metric_conversion_table_select',
+    //'#attributes' => array('event_station_nodes' => $station_info['event_station_nodes']),
+  );
+
+
+
+
+  $form['bs-wgt'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Bs. Wgt or g/m2'),
+    '#default_value' => variable_get('metric_bs-wgt', ' '), //'Offset and Book (25X38 basis size)'),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+
+  $form['multiplier'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Multiplier'),
+    '#default_value' => variable_get('metric_mult', ' '),
+    '#size' => 30,
+    '#maxlenth' => 60,
+    '#description' => 'Not required',
+  );
+
+  $form['warning'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => 'Warning: The results are estimated. Actual numbers may vary.',
+    //'#weight' => -10,
+  );
+
+
+  /*
+   Changes for Drupal 7
+   See: https://drupal.org/node/224333#ahah-now-ajax
+   $form['submit']['button'] = array(
+   '#type' => 'submit',
+   '#value' => t('Calculate'),
+   '#ahah' => array(
+   'event' => 'click',
+   //'path' => 'linear_feet_yard/calculate_js',
+   'path' => 'calc/message_js',
+   'wrapper' => 'metric-calc-result',
+   'effect' => 'fade',
+   )
+   );
+   */
+
+  $form['submit']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Calculate'),
+    '#ajax' => array(
+      'event' => 'click',
+      'callback' => 'calc_message_js',
+      'wrapper' => 'metric-calc-result',
+      'effect' => 'fade',
+    ),
+  );
+
+  $form['clear']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Clear all values'),
+  );
+
+  return $form;
+
+
+
+}
+
+
+
+
+function msi_msf_form_page() {
+
+  $output = '';
+  // Return the HTML generated from the $form data structure.
+  $output = drupal_get_form('msi_msf_form');
+
+  return $output;
+
+}
+
+function msi_msf_form($form) {
+
+
+  // Get metadata for this node type
+  // (we use it for labeling title and body fields).
+  // We defined this in event_station_node_info().
+  //$type = node_get_types('type', $node);
+
+
+  $form['title'] = array(
+    '#type' => 'item',
+    '#title' => '',
+    '#value' => drupal_set_title(t('MSI MSF Calculator')), //'paper calculators',
+    '#default_value' => '',
+    '#maxlength' => 255,
+  );
+
+  $form['fraction_as_decimal'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => fraction_as_decimal(),
+    //'#weight' => -10,
+  );
+
+
+
+  //The item element is formatted in the same way as other input element types like textfield or
+  //select field, but it lacks the input field.
+  $form['instructions'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    '#value' => msi_msf_instruction(),
+  );
+
+
+
+  $form['result'] = array(
+    //'#type' => 'hidden',
+    '#type' => 'markup',
+    '#prefix' => '<div class="calc-result" id="msimsf-calc-result">',
+    '#title' => t('Result'),
+    '#value' => ' ',
+    '#suffix' => '</div>',
+  );
+
+
+  $form['grade_basis'] = array(
+    '#type' => 'select',
+    '#title' => t('Grade-Basis Size'),
+    '#options' => msi_msf_grade_basis_options(),
+    '#default_value' => variable_get('msi_grade', 3300 ), // 'Offset and Book'),
+    '#description' => t(''),
+  );
+
+
+  $form['roll_weight'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Roll Weight'),
+    '#default_value' => variable_get('msi_roll_weight', ' ' ),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+
+  $form['roll_width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Roll Width'),
+    '#default_value' => variable_get('msi_roll_width', ' '  ),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['basis_weight'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Basis Weight'),
+    '#default_value' => variable_get('msi_basis', ' '  ),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+
+
+  $form['warning'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    '#value' => 'Warning: The results are estimated. Actual numbers may vary.',
+  );
+
+
+  /*
+   Changes for Drupal 7
+   See: https://drupal.org/node/224333#ahah-now-ajax
+   $form['submit']['button'] = array(
+   '#type' => 'submit',
+   '#value' => t('Calculate'),
+   '#ahah' => array(
+   'event' => 'click',
+   'path' => 'calc/message_js',
+   'wrapper' => 'msimsf-calc-result',
+   'effect' => 'fade',
+   )
+   );
+   */
+
+  $form['submit']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Calculate'),
+    '#ajax' => array(
+      'event' => 'click',
+      'callback' => 'calc_message_js',
+      'wrapper' => 'msimsf-calc-result',
+      'effect' => 'fade',
+    ),
+  );
+
+  $form['clear']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Clear all values'),
+    /*'#ahah' => array(
+ 'event' => 'click',
+ 'path' => 'msi_msf/calculate_js',
+ 'wrapper' => 'target',
+ 'effect' => 'fade',
+ )*/
+  );
+
+  return $form;
+
+
+}
+
+
+
+
+function pressure_unit_conversion_form_page() {
+
+  $output = '';
+  // Return the HTML generated from the $form data structure.
+  $output = drupal_get_form('pressure_unit_conversion_form');
+
+  return $output;
+
+}
+
+
+function pressure_unit_conversion_form($form) {
+
+  // Get metadata for this node type
+  // (we use it for labeling title and body fields).
+  // We defined this in event_station_node_info().
+  //$type = node_get_types('type', $node);
+
+
+  $form['title'] = array(
+    '#type' => 'item',
+    '#title' => '',
+    '#value' => drupal_set_title(t('Pressure Unit Conversion Calculator')), //'paper calculators',
+    '#default_value' => '',
+    '#maxlength' => 255,
+  );
+
+
+  $form['fraction_as_decimal'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => fraction_as_decimal(),
+    //'#weight' => -10,
+  );
+
+
+
+  //The item element is formatted in the same way as other input element types like textfield or
+  //select field, but it lacks the input field.
+  $form['instructions'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => pressure_unit_conversion_instruction(),
+    //'#weight' => -10,
+  );
+
+
+
+  //Result =
+  /*$form['result'] = array(
+   '#type' => 'hidden',
+   '#prefix' => '<div class="result">',
+   '#title' => t('Result ='),
+   '#value' => '',
+   '#suffix' => '</div>',
+   );
+   */
+
+  //Result =
+  $form['result'] = array(
+    //'#type' => 'hidden',
+    '#type' => 'markup',
+    '#prefix' => '<div class="calc-result" id="pressure-calc-result">',
+    '#title' => t('Result'),
+    '#value' => ' ',
+    '#suffix' => '</div>',
+  );
+
+
+
+  $form['reciprocal'] = array(
+    '#type' => 'hidden',
+    '#prefix' => '<div class="reciprocal">',
+    '#title' => t('Reciprocal ='),
+    '#value' => '',
+    '#suffix' => '</div>',
+  );
+
+
+  $from_unit_options = from_pressure_unit_options();
+
+  $form['from_unit'] = array(
+    '#type' => 'select',
+    '#title' => t('From Unit'),
+    '#default_value' => array(variable_get('puc_from_unit', 421)),
+    '#options' => $from_unit_options,
+    '#description' => t(''),
+  );
+
+  $to_unit_options = to_pressure_unit_options();
+
+  $form['to_unit'] = array(
+    '#type' => 'select',
+    '#title' => t('To Unit'),
+    '#default_value' => array(variable_get('puc_to_unit', 418)),
+    '#options' => $to_unit_options,
+    '#description' => t(''),
+  );
+
+  $form['quantity'] = array(
+    //$form['puc_quantity'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Quantity'),
+    '#default_value' => variable_get('puc_quantity', 1),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['multiplier'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Multiplier'),
+    '#default_value' => variable_get('puc_multiplier', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['warning'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    '#value' => 'Warning: The results are estimated. Actual numbers may vary.',
+  );
+
+
+  /*
+   Changes for Drupal 7
+   See: https://drupal.org/node/224333#ahah-now-ajax
+   $form['submit']['button'] = array(
+   '#type' => 'submit',
+   '#value' => t('Calculate'),
+   '#ahah' => array(
+   'event' => 'click',
+   'path' => 'calc/message_js',
+   'wrapper' => 'pressure-calc-result',
+   'effect' => 'fade',
+   )
+   );
+   */
+
+  $form['submit']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Calculate'),
+    '#ajax' => array(
+      'event' => 'click',
+      'callback' => 'calc_message_js',
+      'wrapper' => 'pressure-calc-result',
+      'effect' => 'fade',
+    ),
+  );
+
+  $form['clear']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Clear all values'),
+    /*'#ahah' => array(
+ 'event' => 'click',
+ 'path' => 'pressure unit conversion/calculate_js',
+ 'wrapper' => 'target',
+ 'effect' => 'fade',
+ )*/
+  );
+
+  return $form;
+
+}
+
+
+
+
+function roll_weight_form_page() {
+
+  $output = '';
+  // Return the HTML generated from the $form data structure.
+  $output = drupal_get_form('roll_weight_form');
+
+  return $output;
+
+}
+
+function roll_weight_form($form) {
+
+  // Get metadata for this node type
+  // (we use it for labeling title and body fields).
+  // We defined this in event_station_node_info().
+  //$type = node_get_types('type', $node);
+
+
+  $form['title'] = array(
+    '#type' => 'item',
+    '#title' => '',
+    '#value' => drupal_set_title(t('Roll Weight Calculator')), //'paper calculators',
+    '#default_value' => '',
+    '#maxlength' => 255,
+  );
+
+
+  $form['fraction_as_decimal'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => fraction_as_decimal(),
+    //'#weight' => -10,
+  );
+
+
+
+  //The item element is formatted in the same way as other input element types like textfield or
+  //select field, but it lacks the input field.
+  $form['instructions'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    '#value' => roll_weight_instruction(),
+  );
+
+
+  //Result =
+  $form['result'] = array(
+    //'#type' => 'hidden',
+    '#type' => 'markup',
+    '#prefix' => '<div class="calc-result" id="rw-calc-result">',
+    '#title' => t('Result'),
+    '#value' => ' ',
+    '#suffix' => '</div>',
+  );
+
+  /*
+   $form['roll_weight'] = array(
+   '#type' => 'hidden',
+   '#prefix' => '<div class="roll_weight">',
+   '#title' => t('Roll Weight ='),
+   '#value' => '',
+   '#suffix' => '</div>',
+   );
+   */
+
+  $form['finish'] = array(
+    '#type' => 'select',
+    '#title' => t('Finish'),
+    '#options' => finish_options(),
+    '#default_value' => array(variable_get('rw_finish', '18')), //Vellum
+    '#description' => t(''),
+  );
+
+
+
+
+
+  $form['diameter'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Diameter'),
+    '#default_value' => variable_get('rw_diameter', ' '),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['core_size'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Core Size'),
+    '#default_value' => variable_get('rw_core', ' '),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['roll_width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Roll Width'),
+    '#default_value' => variable_get('rw_width', ' '),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+
+
+
+
+
+
+
+  $form['warning'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => 'Warning: The results are estimated. Actual numbers may vary.',
+    //'#weight' => -10,
+  );
+
+
+  /*
+   Changes for Drupal 7
+   See: https://drupal.org/node/224333#ahah-now-ajax
+   $form['submit']['button'] = array(
+   '#type' => 'submit',
+   '#value' => t('Calculate'),
+   '#ahah' => array(
+   'event' => 'click',
+   'path' => 'calc/message_js',
+   'wrapper' => 'rw-calc-result',
+   'effect' => 'fade',
+   )
+   );
+   */
+
+  $form['submit']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Calculate'),
+    '#ajax' => array(
+      'event' => 'click',
+      'callback' => 'calc_message_js',
+      'wrapper' => 'rw-calc-result',
+      'effect' => 'fade',
+    ),
+  );
+
+  $form['clear']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Clear all values'),
+    /*'#ahah' => array(
+ 'event' => 'click',
+ 'path' => 'roll_weight/calculate_js',
+ 'wrapper' => 'target',
+ 'effect' => 'fade',
+ )*/
+  );
+
+  return $form;
+
+}
+
+
+
+
+function usage_form_page() {
+
+  $output = '';
+  // Return the HTML generated from the $form data structure.
+  $output = drupal_get_form('usage_form');
+
+  return $output;
+
+}
+
+function usage_form($form) {
+
+  // Get metadata for this node type
+  // (we use it for labeling title and body fields).
+  // We defined this in event_station_node_info().
+  //$type = node_get_types('type', $node);
+
+
+
+
+
+
+
+
+  $form['title'] = array(
+    '#type' => 'item',
+    '#title' => '',
+    '#value' => drupal_set_title(t('Usage Calculator')), //'paper calculators',
+    '#default_value' => '',
+    '#maxlength' => 255,
+  );
+
+
+  $form['fraction_as_decimal'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => fraction_as_decimal(),
+    //'#weight' => -10,
+  );
+
+
+  //M-Weight =
+  /* $form['usage'] = array(
+   '#type' => 'hidden',
+   '#prefix' => '<div class="usage">',
+   '#title' => t('M-Weight ='),
+   '#value' => '',
+   '#suffix' => '</div>',
+   );*/
+
+
+  $form['result'] = array(
+    '#type' => 'markup',
+    '#prefix' => '<div class="calc-result" id="usage-calc-result">',
+    '#title' => t('Result'),
+    '#value' => ' ',
+    '#suffix' => '</div>',
+  );
+
+
+
+
+  /*$form['grade_basis_sizes'] = array(
+   '#type' => 'select',
+   '#title' => t('Grade-Basis Size'),
+   //'#options' => get_station_options($registration_event),//$station_options,
+   '#options' => usage_grade_basis_size_options(),
+   //'#required' => TRUE,
+   '#default_value' => variable_get('grade_basis_sizes', 'Offset and Book (25X38 basis size)'),
+   '#description' => t(''),
+   //'#theme' => 'usage_select',
+   //'#attributes' => array('event_station_nodes' => $station_info['event_station_nodes']),
+   );*/
+
+
+  //The item element is formatted in the same way as other input element types like textfield or
+  //select field, but it lacks the input field.
+  $form['instructions'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => usage_instruction(),
+    //'#weight' => -10,
+  );
+
+
+  $form['dimensions'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Dimensions'),
+    '#tree' => TRUE,
+  );
+
+  $form['dimensions']['length'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Length'),
+    '#default_value' => variable_get('usage_length', '  ' ),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['dimensions']['multiplication'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => 'X',
+    //'#weight' => -10,
+  );
+
+  $form['dimensions']['width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Width'),
+    '#default_value' => variable_get('usage_width',    ' '),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['quantity'] = array(
+    //$form['auc_quantity'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Quantity'),
+    '#default_value' => variable_get('usage_quantity', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+
+  $form['cover_1'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Cover'),
+    '#tree' => TRUE,
+  );
+
+  $form['cover_1']['basis'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Basis'),
+    '#default_value' => variable_get('usage_basis_1', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['cover_1']['waste'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Waste %'),
+    '#default_value' => variable_get('usage_waste_1', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['cover_1']['pages'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pages'),
+    '#default_value' => variable_get('usage_pages_1', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+
+
+  $form['cover_2'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Cover'),
+    '#tree' => TRUE,
+  );
+
+  $form['cover_2']['basis'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Basis'),
+    '#default_value' => variable_get('usage_basis_2', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['cover_2']['waste'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Waste %'),
+    '#default_value' => variable_get('usage_waste_2', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['cover_2']['pages'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pages'),
+    '#default_value' => variable_get('usage_pages_2', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+
+  $form['text_1'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Text'),
+    '#tree' => TRUE,
+  );
+
+
+  $form['text_1']['basis'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Basis'),
+    '#default_value' => variable_get('usage_basis_3', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['text_1']['waste'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Waste %'),
+    '#default_value' => variable_get('usage_waste_3', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+
+
+
+  $form['text_1']['pages'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pages'),
+    '#default_value' => variable_get('usage_pages_3', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+
+
+  $form['text_2'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Text'),
+    '#tree' => TRUE,
+  );
+
+
+  $form['text_2']['basis'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Basis'),
+    '#default_value' => variable_get('usage_basis_4', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['text_2']['waste'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Waste %'),
+    '#default_value' => variable_get('usage_waste_4', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['text_2']['pages'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pages'),
+    '#default_value' => variable_get('usage_pages_4', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+
+
+
+  $form['warning'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => 'Warning: The results are estimated. Actual numbers may vary.',
+    //'#weight' => -10,
+  );
+
+
+  /*
+   Changes for Drupal 7
+   See: https://drupal.org/node/224333#ahah-now-ajax
+   $form['submit']['button'] = array(
+   '#type' => 'submit',
+   '#value' => t('Calculate'),
+   '#ahah' => array(
+   'event' => 'click',
+   'path' => 'calc/message_js',
+   'wrapper' => 'usage-calc-result',
+   'effect' => 'fade',
+   )
+   );
+   */
+
+  $form['submit']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Calculate'),
+    '#ajax' => array(
+      'event' => 'click',
+      'callback' => 'calc_message_js',
+      'wrapper' => 'usage-calc-result',
+      'effect' => 'fade',
+    ),
+  );
+
+  $form['clear']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Clear all values'),
+    /*'#ahah' => array(
+ 'event' => 'click',
+ 'path' => 'weight unit conversion/calculate_js',
+ 'wrapper' => 'target',
+ 'effect' => 'fade',
+ )*/
+  );
+
+
+  return $form;
+
+
+}
+
+
+
+
+function unit_price_converter_form_page() {
+
+  $output = '';
+  // Return the HTML generated from the $form data structure.
+  $output = drupal_get_form('unit_price_converter_form');
+
+  return $output;
+
+}
+
+function unit_price_converter_form($form) {
+
+
+  // Get metadata for this node type
+  // (we use it for labeling title and body fields).
+  // We defined this in event_station_node_info().
+  //$type = node_get_types('type', $node);
+
+
+  $form['title'] = array(
+    '#type' => 'item',
+    '#title' => '',
+    '#value' => drupal_set_title(t('Unit Price Converter Calculator')), //'paper calculators',
+    '#default_value' => '',
+    '#maxlength' => 255,
+  );
+
+
+  $form['fraction_as_decimal'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => fraction_as_decimal(),
+    //'#weight' => -10,
+  );
+
+  //The item element is formatted in the same way as other input element types like textfield or
+  //select field, but it lacks the input field.
+  $form['instructions'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => unit_price_converter_instruction(),
+    //'#weight' => -10,
+  );
+
+
+  //Unit Price Converter =
+
+  //Result =
+  /*
+   $form['unit_price_converter'] = array(
+   '#type' => 'hidden',
+   '#prefix' => '<div class="unit_price_converter">',
+   '#title' => t('Result ='),
+   '#value' => '',
+   '#suffix' => '</div>',
+   );
+   *
+   */
+
+  //Result =
+  $form['result'] = array(
+    //'#type' => 'hidden',
+    '#type' => 'markup',
+    '#prefix' => '<div class="calc-result" id="unit-price-calc-result">',
+    '#title' => t('Result'),
+    '#value' => ' ',
+    '#suffix' => '</div>',
+  );
+
+  $form['quantity'] = array(
+    //$form['upc_quantity'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Quantity'),
+    '#default_value' => variable_get('upc_quantity', 1),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['upc_from_unit'] = array(
+    '#type' => 'select',
+    '#title' => t('From unit'),
+    //'#options' => get_station_options($registration_event), //$station_options,
+    '#options' => upc_from_unit_options(),
+    //'#required' => TRUE,
+    '#default_value' => array(variable_get('upc_from_unit', '908')),
+    '#description' => t(''),
+    //'#theme' => 'unit_price_converter_select',
+    //'#attributes' => array('event_station_nodes' => $station_info['event_station_nodes']),
+  );
+
+
+
+
+
+
+
+
+
+
+
+  $form['warning'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => 'Warning: The results are estimated. Actual numbers may vary.',
+    //'#weight' => -10,
+  );
+
+
+  /*
+   Changes for Drupal 7
+   See: https://drupal.org/node/224333#ahah-now-ajax
+   $form['submit']['button'] = array(
+   '#type' => 'submit',
+   '#value' => t('Calculate'),
+   '#ahah' => array(
+   'event' => 'click',
+   'path' => 'calc/message_js',
+   'wrapper' => 'unit-price-calc-result',
+   'effect' => 'fade',
+   )
+   );
+   */
+
+  $form['submit']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Calculate'),
+    '#ajax' => array(
+      'event' => 'click',
+      'callback' => 'calc_message_js',
+      'wrapper' => 'unit-price-calc-result',
+      'effect' => 'fade',
+    ),
+  );
+
+  $form['clear']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Clear all values'),
+    /*'#ahah' => array(
+ 'event' => 'click',
+ 'path' => 'unit_price_converter/calculate_js',
+ 'wrapper' => 'target',
+ 'effect' => 'fade',
+ )*/
+  );
+
+  return $form;
+
+}
+
+
+
+
+function volume_unit_conversion_form_page() {
+
+  $output = '';
+  // Return the HTML generated from the $form data structure.
+  $output = drupal_get_form('volume_unit_conversion_form');
+
+  return $output;
+
+}
+
+
+function volume_unit_conversion_form($form) {
+
+
+  // Get metadata for this node type
+  // (we use it for labeling title and body fields).
+  // We defined this in event_station_node_info().
+  //$type = node_get_types('type', $node);
+
+
+  $form['title'] = array(
+    '#type' => 'item',
+    '#title' => '',
+    '#value' => drupal_set_title(t('Volume Unit Conversion Calculator')), //'paper calculators',
+    '#default_value' => '',
+    '#maxlength' => 255,
+  );
+
+  $form['fraction_as_decimal'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => fraction_as_decimal(),
+    //'#weight' => -10,
+  );
+
+
+  //The item element is formatted in the same way as other input element types like textfield or
+  //select field, but it lacks the input field.
+  $form['instructions'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => volume_unit_conversion_instruction(),
+    //'#weight' => -10,
+  );
+
+
+
+  //Result =
+  /*$form['result'] = array(
+   '#type' => 'hidden',
+   '#prefix' => '<div class="result">',
+   '#title' => t('Result ='),
+   '#value' => '',
+   '#suffix' => '</div>',
+   );
+   */
+
+  //Result =
+  $form['result'] = array(
+    //'#type' => 'hidden',
+    '#type' => 'markup',
+    '#prefix' => '<div class="calc-result" id="volume-calc-result">',
+    '#title' => t('Result'),
+    '#value' => ' ',
+    '#suffix' => '</div>',
+  );
+
+
+  $form['reciprocal'] = array(
+    '#type' => 'hidden',
+    '#prefix' => '<div class="reciprocal">',
+    '#title' => t('Reciprocal ='),
+    '#value' => '',
+    '#suffix' => '</div>',
+  );
+
+
+  $from_unit_options = from_volume_unit_options();
+
+  $form['from_unit'] = array(
+    '#type' => 'select',
+    '#title' => t('From Unit'),
+    '#default_value' => array(variable_get('vuc_from_unit', 306)), //'Meter [m]'
+    '#options' => $from_unit_options,
+    //'#default_value' => variable_get('from_unit', 'Feet [ft]'),
+    '#description' => t(''),
+  );
+
+  $to_unit_options = to_volume_unit_options();
+
+  $form['to_unit'] = array(
+    '#type' => 'select',
+    '#title' => t('To Unit'),
+    '#default_value' => array(variable_get('vuc_to_unit', 304 )), //'Feet [ft]'),
+    '#options' => $to_unit_options,
+    '#description' => t(''),
+    //'#theme' => 'volume unit conversion_select',
+    //'#attributes' => array('event_station_nodes' => $station_info['event_station_nodes']),
+  );
+
+  $form['quantity'] = array(
+    //$form['vuc_quantity'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Quantity'),
+    '#default_value' => variable_get('vuc_quantity', 1),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['multiplier'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Multiplier'),
+    '#default_value' => variable_get('vuc_multiplier', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['warning'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => 'Warning: The results are estimated. Actual numbers may vary.',
+    //'#weight' => -10,
+  );
+
+
+  /*
+   Changes for Drupal 7
+   See: https://drupal.org/node/224333#ahah-now-ajax
+   $form['submit']['button'] = array(
+   '#type' => 'submit',
+   '#value' => t('Calculate'),
+   '#ahah' => array(
+   'event' => 'click',
+   'path' => 'calc/message_js',
+   'wrapper' => 'volume-calc-result',
+   'effect' => 'fade',
+   )
+   );
+   */
+
+  $form['submit']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Calculate'),
+    '#ajax' => array(
+      'event' => 'click',
+      'callback' => 'calc_message_js',
+      'wrapper' => 'volume-calc-result',
+      'effect' => 'fade',
+    ),
+  );
+
+  $form['clear']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Clear all values'),
+    /*'#ahah' => array(
+ 'event' => 'click',
+ 'path' => 'volume unit conversion/calculate_js',
+ 'wrapper' => 'target',
+ 'effect' => 'fade',
+ )*/
+  );
+
+  return $form;
+
+
+}
+
+
+
+function weight_unit_conversion_form_page() {
+
+  $output = '';
+  // Return the HTML generated from the $form data structure.
+  $output = drupal_get_form('weight_unit_conversion_form');
+
+  return $output;
+
+}
+
+function weight_unit_conversion_form($form) {
+
+
+  // Get metadata for this node type
+  // (we use it for labeling title and body fields).
+  // We defined this in event_station_node_info().
+  //$type = node_get_types('type', $node);
+
+
+  $form['title'] = array(
+    '#type' => 'item',
+    '#title' => '',
+    '#value' => drupal_set_title(t('Weight Unit Conversion Calculator')), //'paper calculators',
+    '#default_value' => '',
+    '#maxlength' => 255,
+  );
+
+  $form['fraction_as_decimal'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => fraction_as_decimal(),
+    //'#weight' => -10,
+  );
+
+
+
+  //The item element is formatted in the same way as other input element types like textfield or
+  //select field, but it lacks the input field.
+  $form['instructions'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    //'#description' => '',
+    '#value' => weight_unit_conversion_instruction(),
+    //'#weight' => -10,
+  );
+
+
+
+  //Result =
+  /*$form['result'] = array(
+   '#type' => 'hidden',
+   '#prefix' => '<div class="result">',
+   '#title' => t('Result ='),
+   '#value' => '',
+   '#suffix' => '</div>',
+   );
+   */
+
+  $form['result'] = array(
+    //'#type' => 'hidden',
+    '#type' => 'markup',
+    '#prefix' => '<div class="calc-result" id="weight-calc-result">',
+    '#title' => t('Result'),
+    '#value' => ' ',
+    '#suffix' => '</div>',
+  );
+
+
+  /*
+   $form['reciprocal'] = array(
+   '#type' => 'hidden',
+   '#prefix' => '<div class="reciprocal">',
+   '#title' => t('Reciprocal ='),
+   '#value' => '',
+   '#suffix' => '</div>',
+   );
+
+   */
+
+
+  $from_unit_options = from_weight_unit_options();
+
+  $form['from_unit'] = array(
+    '#type' => 'select',
+    '#title' => t('From Unit'),
+    '#default_value' => array(variable_get('wuc_from_unit', 508)),
+    '#options' => $from_unit_options,
+    '#description' => t(''),
+  );
+
+  $to_unit_options = to_weight_unit_options();
+
+  $form['to_unit'] = array(
+    '#type' => 'select',
+    '#title' => t('To Unit'),
+    '#default_value' => array(variable_get('wuc_to_unit', 502)),
+    '#options' => $to_unit_options,
+    '#description' => t(''),
+  );
+
+  $form['quantity'] = array(
+    //$form['w_quantity'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Quantity'),
+    '#default_value' => variable_get('wuc_quantity', 1),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['multiplier'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Multiplier'),
+    '#default_value' => variable_get('wuc_multiplier', ''),
+    '#size' => 30,
+    '#maxlenth' => 60,
+  );
+
+  $form['warning'] = array(
+    '#type' => 'item',
+    '#title' => t(''),
+    '#value' => 'Warning: The results are estimated. Actual numbers may vary.',
+  );
+
+
+  /*
+   Changes for Drupal 7
+   See: https://drupal.org/node/224333#ahah-now-ajax
+   $form['submit']['button'] = array(
+   '#type' => 'submit',
+   '#value' => t('Calculate'),
+   '#ahah' => array(
+   'event' => 'click',
+   'path' => 'calc/message_js',
+   'wrapper' => 'weight-calc-result',
+   'effect' => 'fade',
+   )
+   );
+   */
+
+  $form['submit']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Calculate'),
+    '#ajax' => array(
+      'event' => 'click',
+      'callback' => 'calc_message_js',
+      'wrapper' => 'weight-calc-result',
+      'effect' => 'fade',
+    ),
+  );
+
+  $form['clear']['button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Clear all values'),
+  );
+
+  return $form;
+
+}
+
+
+
+
+function area_unit_conversion_instruction() {
+
+  return '';
+
+}
+
+function density_unit_conversion_instruction() {
+
+  return '';
+
+}
+
+function linear_feet_yard_instruction() {
+
+  return 'Please enter the Roll Width, the Roll Weight and the Basis Weight.';
+
+}
+
+
+
+
+function to_density_unit_options() {
+
+  $unit_options = array(
+    '601' => 'Grams/Liter',
+    '602' => 'Kilograms/Liter',
+    '603' => 'Milligrams/LIter',
+    '604' => 'Ounces/Cubic Inch',
+    '605' => 'Ounces/Gallon (UK)',
+    '606' => 'Ounces/Gallon (US)',
+    '607' => 'Pounds/Cubic Inch',
+    '608' => 'Pounds/Cubic Foot',
+    '609' => 'Pounds/Gallon (UK)',
+    '610' => 'Pounds/Gallon (US)',
+    '611' => 'Tons (UK)/Cubic Yard',
+    '612' => 'Tons (US)/Cubic Yard [ton]',
+  );
+
+
+  return $unit_options;
+
+}
+
+
+function from_density_unit_options() {
+
+  $unit_options = array(
+    '601' => 'Grams/Liter',
+    '602' => 'Kilograms/Liter',
+    '603' => 'Milligrams/LIter',
+    '604' => 'Ounces/Cubic Inch',
+    '605' => 'Ounces/Gallon (UK)',
+    '606' => 'Ounces/Gallon (US)',
+    '607' => 'Pounds/Cubic Inch',
+    '608' => 'Pounds/Cubic Foot',
+    '609' => 'Pounds/Gallon (UK)',
+    '610' => 'Pounds/Gallon (US)',
+    '611' => 'Tons (UK)/Cubic Yard',
+    '612' => 'Tons (US)/Cubic Yard [ton]',
+  );
+
+
+  return $unit_options;
+
+}
+
+
+function length_unit_conversion_instruction() {
+
+  return '';
+
+}
+
+function m_weight_instruction() {
+
+  return 'Please enter both dimensions and the Basis Weight.';
+
+}
+
+function to_length_unit_options() {
+
+  $unit_options = array(
+    '101' => 'Centimeters [cm]',
+    '102' => 'Ems (pica) [em]',
+    '103' => 'Feet [ft]',
+    '104' => 'Inches [in]',
+    '105' => 'kilometers [km]',
+    '106' => 'meters [m]',
+    '107' => 'Micrometers',
+    '108' => 'Mil [mil]',
+    '109' => 'Miles [mi]',
+    '110' => 'Millimeters [mm]',
+    '111' => 'Points [pt]',
+    '112' => 'Yards [yd]',
+  );
+
+
+  return $unit_options;
+
+}
+
+
+function from_length_unit_options() {
+
+  $unit_options = array(
+    '101' => 'Centimeters [cm]',
+    '102' => 'Ems (pica) [em]',
+    '103' => 'Feet [ft]',
+    '104' => 'Inches [in]',
+    '105' => 'kilometers [km]',
+    '106' => 'Meters [m]',
+    '107' => 'Micrometers',
+    '108' => 'Mil [mil]',
+    '109' => 'Miles [mi]',
+    '110' => 'Millimeters [mm]',
+    '111' => 'Points [pt]',
+    '112' => 'Yards [yd]',
+  );
+
+
+  return $unit_options;
+
+}
+
+function linear_grade_basis_options() {
+
+  $grade_basis_options = array(
+    '3300' => 'Offset and Book',
+    '3070' => 'Tag (24x36)',
+    '1300' => 'Office and Writing Papers',
+    '1805' => 'Cover',
+    '2700' => 'Index (25.5x30.5)',
+    '2230' => 'Vellum Briston (22.5 x 28.5)',
+  );
+
+
+  return $grade_basis_options;
+
+}
+
+
+function grade_basis_size_options() {
+
+  $grade_basis_size_options = array(
+    'Offset and Book (25X38 basis size)',
+    'Tag or SBS (24X36 basis size)',
+    'Office and Writing Papers (17 x 22 basis size)',
+    'Cover (20x22 basis size)',
+    'Index (25.5x30.5 basis size)',
+    'Vellum Bristol (22.5x28.5 basis size)',
+  );
+
+
+  return $grade_basis_size_options;
+
+}
+
+
+function metric_grade_basis_size_options() {
+
+  $grade_basis_size_options = array(
+    '950' => 'Offset and Book (25X38 basis size)',
+    '864' => 'Tag or SBS (24X36 basis size)',
+    '374' => 'Office and Writing Papers (17 x 22 basis size)',
+    '520' => 'Cover (20x26 basis size)',
+    '777.5' => 'Index (25.5x30.5 basis size)',
+    '641.15' => 'Vellum Bristol (22.5x28.5 basis size)',
+    '805' => 'Bristol (25x35 basis size)',
+  );
+
+
+  return $grade_basis_size_options;
+
+}
+
+function metric_conversion_table_instruction() {
+
+  return 'Please enter the Basis Weight.';
+
+}
+
+
+function msi_msf_grade_basis_options() {
+
+  $grade_basis_options = array(
+    '3300' => 'Offset and Book',
+    '3070' => 'Tag (24x36)',
+    '1300' => 'Office and Writing Papers',
+    '1805' => 'Cover',
+    '2700' => 'Index (25.5x30.5)',
+    '2230' => 'Vellum Briston (22.5 x 28.5)',
+  );
+
+
+  return $grade_basis_options;
+
+}
+
+function msi_msf_instruction() {
+
+  return 'Please enter the Roll Width, the Roll Weight and the Basis Weight.';
+
+}
+
+
+function to_pressure_unit_options() {
+
+  $unit_options = array(
+    '401' => 'Atmospheres',
+    '402' => 'Bars',
+    '403' => 'Centimeters mercury',
+    '404' => 'Centimeters water',
+    '405' => 'Feet of water',
+    '406' => 'Inches of water',
+    '407' => 'Inches of mercury',
+    '408' => 'Kilograms-forces/sq.centimeter',
+    '409' => 'Kilograms-forces/sq.meter',
+    '410' => 'Kilonewtons/sq.meter',
+    '411' => 'Kilonewtons/sq.millimeter',
+    '412' => 'Kilopascals [kPa]',
+    '413' => 'Meters of water',
+    '414' => 'Millibars',
+    '415' => 'Millimeters of mercury',
+    '416' => 'Millimeters of Water',
+    '417' => 'Newtons/sq.cm',
+    '418' => 'Newtons/sq.meter or Pascals [Pa]',
+    '419' => 'Newtons/sq.mm',
+    '420' => 'Pounds-force/sq.foot',
+    '421' => 'Pounds-force/sq.inch [psi]',
+    '422' => 'Tons (UK)-force/sq.foot',
+    '423' => 'Tons (UK)-force/sq.inch',
+    '424' => 'Ttons (US)-force/sq.foot',
+    '425' => 'Ttons (US)-force/sq.inch',
+    '426' => 'Tonnes-force/sq.cm',
+    '427' => 'Tonnes-force/sq.meter',
+    '428' => 'Torr (mm Hg 0 degrees C)',
+  );
+
+
+  return $unit_options;
+
+}
+
+
+function from_pressure_unit_options() {
+
+  $unit_options = array(
+    '401' => 'Atmospheres',
+    '402' => 'Bars',
+    '403' => 'Centimeters mercury',
+    '404' => 'Centimeters water',
+    '405' => 'Feet of water',
+    '406' => 'Inches of water',
+    '407' => 'Inches of mercury',
+    '408' => 'Kilograms-forces/sq.centimeter',
+    '409' => 'Kilograms-forces/sq.meter',
+    '410' => 'Kilonewtons/sq.meter',
+    '411' => 'Kilonewtons/sq.millimeter',
+    '412' => 'Kilopascals [kPa]',
+    '413' => 'Meters of water',
+    '414' => 'Millibars',
+    '415' => 'Millimeters of mercury',
+    '416' => 'Millimeters of Water',
+    '417' => 'Newtons/sq.cm',
+    '418' => 'Newtons/sq.meter or Pascals [Pa]',
+    '419' => 'Newtons/sq.mm',
+    '420' => 'Pounds-force/sq.foot',
+    '421' => 'Pounds-force/sq.inch [psi]',
+    '422' => 'Tons (UK)-force/sq.foot',
+    '423' => 'Tons (UK)-force/sq.inch',
+    '424' => 'Ttons (US)-force/sq.foot',
+    '425' => 'Ttons (US)-force/sq.inch',
+    '426' => 'Tonnes-force/sq.cm',
+    '427' => 'Tonnes-force/sq.meter',
+    '428' => 'Torr (mm Hg 0 degrees C)',
+  );
+
+
+  return $unit_options;
+
+}
+
+
+function pressure_unit_conversion_instruction() {
+
+  return '';
+
+}
+
+/* roll weight */
+function finish_options() {
+
+  $finish_options = array(
+    '18' => 'Vellum',
+    '21' => 'Wove',
+    '22' => 'Smooth',
+    '26' => 'M.F. or E.F.',
+    '28' => 'Super',
+    '30' => 'C1S',
+    '33' => 'C2S',
+    '25' => 'kromekote C1S Litho',
+    '25' => 'kromekote C1S Cover .008, .010 & .012',
+    '28' => 'kromekote C1S Cover 50lb and .006',
+  );
+
+
+  return $finish_options;
+
+}
+
+function roll_weight_instruction() {
+
+  return 'Please enter the Roll Diameter, the Roll Core Size and the Roll Width.';
+
+}
+
+
+function usage_grade_basis_size_options() {
+
+  $grade_basis_size_options = array(
+    'Offset and Book (25X38 basis size)',
+    'Tag or SBS (24X36 basis size)',
+    'Office and Writing Papers (17 x 22 basis size)',
+    'Cover (20x22 basis size)',
+    'Index (25.5x30.5 basis size)',
+    'Vellum Bristol (22.5x28.5 basis size)',
+  );
+
+
+  return $grade_basis_size_options;
+
+}
+
+function usage_instruction() {
+
+  return 'Please enter both dimensions, the quantity and the number of pages.';
+
+}
+
+
+function upc_from_unit_options() {
+
+  $finish_options = array(
+    '902' => 'Cwt',
+    '907' => 'Short Tons',
+    '908' => 'Metric Tons',
+  );
+
+
+  return $finish_options;
+
+}
+
+function unit_price_converter_instruction() {
+
+  return '';
+
+}
+
+
+function to_volume_unit_options() {
+
+  $unit_options = array(
+    '301' => 'Barrels (oil) [bbl]',
+    '302' => 'Centiliters [cl]',
+    '303' => 'Cubic Centimeters [cm³]',
+    '304' => 'Cubic Feet [ft³]',
+    '305' => 'Cubic Inches [in³]',
+    '306' => 'Cubic Meters [m³]',
+    '307' => 'Cubic Millimeters [mm³]',
+    '308' => 'Cubic Yards [yd³]',
+    '309' => 'Cups',
+    '310' => 'Deciliters [dl]',
+    '311' => 'Fluid Ounces (UK)',
+    '312' => 'Fluid Ounces (US) [floz]',
+    '313' => 'Gallons (UK)',
+    '314' => 'Gallons, dry (US)',
+    '315' => 'Gallons, liquid (US) [ga]',
+    '316' => 'Liters [l]',
+    '317' => 'Milliliters [ml]',
+    '318' => 'Pints (UK)',
+    '319' => 'Pints, dry (US)',
+    '320' => 'Pints, liquid (US)[pt]',
+    '321' => 'Quarts (UK)',
+    '322' => 'Quarts, dry (US)',
+    '323' => 'Quarts, liquid (US) [qt]',
+  );
+
+
+
+  return $unit_options;
+
+}
+
+
+function from_volume_unit_options() {
+
+  $unit_options = array(
+    '301' => 'Barrels (oil) [bbl]',
+    '302' => 'Centiliters [cl]',
+    '303' => 'Cubic Centimeters [cm³]',
+    '304' => 'Cubic Feet [ft³]',
+    '305' => 'Cubic Inches [in³]',
+    '306' => 'Cubic Meters [m³]',
+    '307' => 'Cubic Millimeters [mm³]',
+    '308' => 'Cubic Yards [yd³]',
+    '309' => 'Cups',
+    '310' => 'Deciliters [dl]',
+    '311' => 'Fluid Ounces (UK)',
+    '312' => 'Fluid Ounces (US) [floz]',
+    '313' => 'Gallons (UK)',
+    '314' => 'Gallons, dry (US)',
+    '315' => 'Gallons, liquid (US) [ga]',
+    '316' => 'Liters [l]',
+    '317' => 'Milliliters [ml]',
+    '318' => 'Pints (UK)',
+    '319' => 'Pints, dry (US)',
+    '320' => 'Pints, liquid (US)[pt]',
+    '321' => 'Quarts (UK)',
+    '322' => 'Quarts, dry (US)',
+    '323' => 'Quarts, liquid (US) [qt]',
+  );
+
+
+  return $unit_options;
+
+}
+
+function fraction_as_decimal() {
+
+  return 'Fractional numbers must be entered in decimal equivalents.';
+}
+
+function volume_unit_conversion_instruction() {
+
+  return '';
+
+}
+
+
+function to_weight_unit_options() {
+
+  $unit_options = array(
+    '501' => 'Grams [gm]',
+    '502' => 'Cwt (US)',
+    '503' => 'Kilograms [km]',
+    '504' => 'Ounces (avoirdupois) [oz]',
+    '505' => 'Pounds (avoirdupois) [lbs]',
+    '506' => 'Tons (UK or long) ',
+    '507' => 'Tons (US or short',
+    '508' => 'Tons (metric)',
+  );
+
+
+  return $unit_options;
+
+}
+
+
+function from_weight_unit_options() {
+
+  $unit_options = array(
+    '501' => 'Grams [gm]',
+    '502' => 'Cwt (US)',
+    '503' => 'Kilograms [km]',
+    '504' => 'Ounces (avoirdupois) [oz]',
+    '505' => 'Pounds (avoirdupois) [lbs]',
+    '506' => 'Tons (UK or long) ',
+    '507' => 'Tons (US or short',
+    '508' => 'Tons (metric)',
+  );
+
+
+  return $unit_options;
+
+}
+
+
+function weight_unit_conversion_instruction() {
+
+  return '';
+
+}
+
+
+function to_area_unit_options() {
+
+  $unit_options = array(
+    '201' => 'Acres',
+    '202' => 'Ares',
+    '203' => 'hectares',
+    '204' => 'Square Centimeters [cm²]',
+    '205' => 'Square Feet [ft²]',
+    '206' => 'Square Inches [in²]',
+    '207' => 'Square Kilometers [km²]',
+    '208' => 'Square Meters [m²]',
+    '209' => 'Square Miles [mi²]',
+    '210' => 'Square Millimeters [mm²]',
+    '211' => 'Square Yards [yd²]',
+  );
+
+
+  return $unit_options;
+
+}
+
+
+function from_area_unit_options() {
+
+  $unit_options = array(
+    '201' => 'Acres',
+    '202' => 'Ares',
+    '203' => 'hectares',
+    '204' => 'Square Centimeters [cm²]',
+    '205' => 'Square Feet [ft²]',
+    '206' => 'Square Inches [in²]',
+    '207' => 'Square Kilometers [km²]',
+    '208' => 'Square Meters [m²]',
+    '209' => 'Square Miles [mi²]',
+    '210' => 'Square Millimeters [mm²]',
+    '211' => 'Square Yards [yd²]',
+  );
+
+
+  return $unit_options;
+
+}
+
+
+function m_grade_basis_size_options() {
+
+  $grade_basis_size_options = array(
+    '950' => 'Offset and Book (25X38 basis size)',
+    '864' => 'Tag or SBS (24X36 basis size)',
+    '374' => 'Office and Writing Papers (17 x 22 basis size)',
+    '520' => 'Cover (20x22 basis size)',
+    '777.5' => 'Index (25.5x30.5 basis size)',
+    '641.15' => 'Vellum Bristol (22.5x28.5 basis size)',
+  );
+
+
+  return $grade_basis_size_options;
+
+}
+
+
+
+function get_factor($factor_id) {
+
+
+  $factors = array(
+    '902' => '45.359237',
+    '907' => '907.18474',
+    '908' => '1000',
+  );
+
+
+  return $factors[$factor_id];
+}
+
+function get_uom($uom_id) { //get Unit of measure
+  $uoms = array(
+    '902' => 'Cwt',
+    '907' => 'Short Ton',
+    '908' => 'Metric Ton',
+  );
+
+
+  return $uoms[$uom_id];
+
+}
+
+function get_other_uom($factor) {
+
+  $uoms = array();
+
+  $uoms = array(
+    '45.359237' => 'Cwt',
+    '907.18474' => 'Short Ton',
+    '1000' => 'Metric Ton',
+  );
+
+  return $uoms[$factor];
+
+}
+
+function get_to_factors($factor_id) {
+
+  $to_factors = array();
+
+  //$factors = array('902' => '45.359237', '907' => '907.18474', '908' => '1000');
+
+  $factors = array(
+    '902' => array(
+      'factor' => '45.359237',
+      'uom' => 'Cwt',
+    ),
+    '907' => array(
+      'factor' => '907.18474',
+      'uom' => 'Short Ton',
+    ),
+    '908' => array(
+      'factor' => '1000',
+      'uom' => 'Metric Ton',
+    ),
+  );
+
+  foreach ($factors as $key => $value) {
+
+    if ($factor_id != $key) {
+
+      $to_factors[] = $value;
+    }
+  }
+
+  return $to_factors;
+}
+
+
+
+function create_error_message($entry_error = array()) {
+
+
+  if (count($entry_error) > 1) {
+
+    $error_message = '<div class="messages error"> <ul>';
+
+    foreach ($entry_error as $value) {
+
+
+      $error_message .= '<li>' . $value . '</li>';
+    }
+
+    $error_message .= '</ul> </div>';
+
+  }
+  else {
+
+    $error_message = '<div class="messages error">' . $entry_error[0] . '</div>';
+
+  }
+
+  return $error_message;
+
+}
+
+
+function calc_message_js() {
+  //function area_message_js() {
+  //function _pre_area_message_js() {
+
+
+  $entry_error = array();
+
+
+  // This code is executed, while the form is submitted. There's
+  // a wide range of possible operations to execute here, such as
+  // process and store settings, enable extra modules, or save
+  // contents to the new site (unless the operations are too
+  // expensive: the Batch API is a good choice for such operations,
+  // but it needs to be coded inside hook_profile_tasks(), not
+  // here).
+
+  // In this example profile, we just store the submitted text to
+  // a temporary variable, to be used in further tasks.
+  //variable_set('example_submitted_text', $form_state['values']['example_text']);
+
+  $values = $_POST;
+  $clicked_button = 'edit-button';
+
+  $form_id = $_POST['form_id'];
+
+
+  switch ($form_id) {
+    case 'm_weight_form':
+
+      if ($clicked_button == 'edit-button-1') {
+
+        variable_set('mw_length', '');
+        variable_set('mw_width', '');
+        variable_set('mw_basis', '');
+        variable_set('mw_grade', '950');
+
+        break;
+      }
+
+
+
+
+
+
+
+      /*
+       variable_set('mw_length', $values['dimensions']['length']);
+       variable_set('mw_width', $values['dimensions']['width']);
+       variable_set('mw_basis', $values['basis_weight']);
+       variable_set('mw_grade', $values['grade_basis_sizes']);
+       */
+
+      $length = doubleval($values['dimensions']['length']); //Dimx
+      $width = doubleval($values['dimensions']['width']); //Dimy
+      $basis = doubleval($values['basis_weight']);
+      $grade = doubleval($values['grade_basis_sizes']);
+
+
+      if ($length <= 0) {
+
+        $entry_error[] = 'The value for Length is invalid.';
+
+      }
+
+      if ($width <= 0) {
+
+        $entry_error[] = 'The value for Width is invalid.';
+      }
+
+      if ($basis <= 0) {
+
+        $entry_error[] = 'The value for Basis Weight is invalid.';
+      }
+
+
+      if (!empty($entry_error)) {
+
+        $error_message = create_error_message($entry_error);
+
+        $output = $error_message;
+        drupal_json_output(array('status' => TRUE, 'data' => $output));
+        break;
+
+      }
+
+
+      if ($length * $width > 374) {
+
+        $i = 0;
+      }
+      else {
+        $i = 2;
+      }
+
+      $result = number_format(round(($length * $width * $basis * 2) / $grade, $i), $i);
+
+      $result_message = '<div class="m-weight">';
+      $result_message .= 'M-Weight = ' . $result . ' pounds';
+      $result_message .= '</div>';
+
+      //drupal_set_message($result_message);
+
+      $output = $result_message;
+
+      drupal_json_output(array('status' => TRUE, 'data' => $output));
+
+      break;
+    case 'usage_form':
+
+      if ($clicked_button == 'edit-button-1') {
+
+        variable_set('usage_length', '');
+        variable_set('usage_width', '');
+        variable_set('usage_basis_1', '');
+        variable_set('usage_basis_2', '');
+        variable_set('usage_basis_3', '');
+        variable_set('usage_basis_4', '');
+        variable_set('usage_pages_1', '');
+        variable_set('usage_pages_2', '');
+        variable_set('usage_pages_3', '');
+        variable_set('usage_pages_4', '');
+        variable_set('usage_waste_1', '');
+        variable_set('usage_waste_2', '');
+        variable_set('usage_waste_3', '');
+        variable_set('usage_waste_4', '');
+        variable_set('usage_quantity', '');
+
+        break;
+      }
+
+      //Ensure that values are retained after processing request
+      /*variable_set('usage_length',$values['dimensions']['length']);
+       variable_set('usage_width',$values['dimensions']['width']);
+       variable_set('usage_basis_1',$values['cover_1']['basis']);
+       variable_set('usage_basis_2',$values['cover_2']['basis']);
+       variable_set('usage_basis_3',$values['text_1']['basis']);
+       variable_set('usage_basis_4',$values['text_2']['basis']);
+       variable_set('usage_pages_1',$values['cover_1']['pages']);
+       variable_set('usage_pages_2',$values['cover_2']['pages']);
+       variable_set('usage_pages_3',$values['text_1']['pages']);
+       variable_set('usage_pages_4',$values['text_2']['pages']);
+       variable_set('usage_waste_1',$values['cover_1']['waste']);
+       variable_set('usage_waste_2',$values['cover_2']['waste']);
+       variable_set('usage_waste_3',$values['text_1']['waste']);
+       variable_set('usage_waste_4',$values['text_2']['waste']);
+       variable_set('usage_quantity',$values['quantity']);
+       */
+
+      $basis_size = array(
+        0 => 520,
+        1 => 520,
+        2 => 950,
+        3 => 950,
+      );
+
+
+
+      $length = doubleval($values['dimensions']['length']);
+      $width = doubleval($values['dimensions']['width']);
+      //$weight = $values['basis_weight'];
+
+      $weight = array();
+      $weight[] = $values['cover_1']['basis'];
+      $weight[] = $values['cover_2']['basis'];
+      $weight[] = $values['text_1']['basis'];
+      $weight[] = $values['text_2']['basis'];
+
+      $num_pages = array();
+      $num_pages[] = $values['cover_1']['pages'];
+      $num_pages[] = $values['cover_2']['pages'];
+      $num_pages[] = $values['text_1']['pages'];
+      $num_pages[] = $values['text_2']['pages'];
+
+      $waste = array();
+      $waste[] = $values['cover_1']['waste'];
+      $waste[] = $values['cover_2']['waste'];
+      $waste[] = $values['text_1']['waste'];
+      $waste[] = $values['text_2']['waste'];
+
+      $quantity = doubleval($values['quantity']);
+
+
+
+
+      if ($width <= 0) {
+        $entry_error[] =  "The value for Width is invalid.";
+      }
+
+
+      if ($length <= 0) {
+        $entry_error[] = "The value for Length is invalid.";
+      }
+
+      $quantity = $values['quantity'];
+      if ($quantity <= 0) {
+
+        $entry_error[] = "The value  for Quantity is invalid.";
+
+      }
+
+      if ($num_pages[0] == 0 && $num_pages[1] == 0 && $num_pages[2] == 0 && $num_pages[3] == 0 ) {
+
+        //Entryerror "the number of pages
+        $entry_error[] = "Please provide a value for pages.";
+      }
+
+      if (!empty($entry_error)) {
+
+        $error_message = create_error_message($entry_error);
+
+        $output = $error_message;
+        drupal_json_output(array('status' => TRUE, 'data' => $output));
+        break;
+
+      }
+
+      $tot_wgt = array();
+      //$TotWgt_unround = array();
+      //$TotWgt_rounddown = array();
+
+      for ($i = 0; $i < 4; $i++) {
+
+        $tot_wgt[] = round($length * $width * ($weight[$i] / $basis_size[$i]) * $num_pages[$i] * (100 + $waste[$i]) * $quantity / 100000, 2);
+        //$TotWgt_unround[] = $length * $width * ($weight[$i]/$basis_size[$i])* $num_pages[$i] * (100 + $waste[$i]) * $quantity/100000;
+        //$TotWgt_rounddown[] = round($length * $width * ($weight[$i]/$basis_size[$i])* $num_pages[$i] * (100 + $waste[$i]) * $quantity/100000,2, PHP_ROUND_HALF_DOWN);
+      }
+
+
+      $cover_weight =  number_format($tot_wgt[0] + $tot_wgt[1], 2);
+      $text_weight = number_format($tot_wgt[2] + $tot_wgt[3], 2);
+
+      $total_weight = number_format( $tot_wgt[0] + $tot_wgt[1] + $tot_wgt[2] + $tot_wgt[3], 2);
+
+      $cover_weight_message = '<div class="usage-cover-weight"> Cover weight ' . $cover_weight .  '</div >';
+      $text_weight_message = '<div class="usage-text-weight"> Text weight ' .  $text_weight .  '</div >';
+      $total_weight_message = '<div class="usage-total-weight"> Total weight ' . $total_weight .  '</div >';
+
+      $weight_in_pounds = 'Weight in Pounds = ' . '<div class="wip"> ' . $cover_weight_message . ' ' . $text_weight_message . ' ' . $total_weight_message .   '</div>';
+
+      //Drupal_set_message($weight_in_pounds);
+
+      $cover_1 = '<div class="usage-cover_1"> Cover: ' . $tot_wgt[0] . '</div>';
+      $cover_2 = '<div class="usage-cover_2"> Cover: ' . $tot_wgt[1] . '</div>';
+      $text_1 = '<div class="usage-text_1"> Text: ' . $tot_wgt[2] . '</div>';
+      $text_2 = '<div class="usagetext_2"> Text: ' . $tot_wgt[3] . '</div>';
+
+
+      $pounds = '<div class="usage-pounds"> Pounds ' . ' ' . $cover_1 . ' ' . $cover_2 . ' ' . $text_1 . ' ' . $text_2 . '</div>';
+
+      //Drupal_set_message( $weight_in_pounds . $pounds );
+
+      $output = $weight_in_pounds . $pounds;
+      drupal_json_output(array('status' => TRUE, 'data' => $output));
+
+
+      break;
+    case 'roll_weight_form': //fix totals tjs 2011May12
+      if ($clicked_button == 'edit-button-1') {
+
+
+        variable_set('rw_diameter', '');
+        variable_set('rw_core', '');
+        variable_set('rw_width', '');
+        variable_set('rw_finish', '18');
+
+        break;
+      }
+
+
+      /*
+       variable_set('rw_diameter', $values['diameter']);
+       variable_set('rw_core', $values['core_size']);
+       variable_set('rw_width', $values['roll_width']);
+       variable_set('rw_finish', $values['finish']);
+       */
+
+      $roll_diameter = doubleval($values['diameter']);
+      $roll_core = doubleval($values['core_size']);
+      $roll_width = doubleval($values['roll_width']);
+      $factor = doubleval($values['finish']);
+
+
+
+
+      if ($roll_diameter <= 0) {
+
+        $entry_error[] =  "The value for Diameter is invalid.";
+      }
+
+
+
+      if ($roll_core <= 0) {
+        $entry_error[] =   "The value for Core Size is invalid.";
+      }
+
+
+      if ($roll_width <= 0) {
+        $entry_error[] =  "The value for Roll Width is invalid.";
+      }
+
+      if ($roll_diameter > 0   && $roll_core > 0 && $roll_core >= $roll_diameter) {
+
+        //$error = "Roll Diameter has to be larger than Core Size.
+        $entry_error[] =   'Roll Diameter has to be larger than Core Size';
+      }
+
+      if (!empty($entry_error)) {
+        $error_message = create_error_message($entry_error);
+
+        $output = $error_message;
+        drupal_json_output(array('status' => TRUE, 'data' => $output));
+        break;
+      }
+
+      $i = 0;
+
+      $result = number_format(round(($roll_diameter * $roll_diameter - $roll_core * $roll_core) * $roll_width * $factor / 1000, $i), $i);
+
+      $rw_message = 'Roll Weight = ' . $result . ' pounds.';
+
+
+
+      //Drupal_set_message($rw_message);
+
+      $output = $rw_message;
+      drupal_json_output(array('status' => TRUE, 'data' => $output));
+
+
+
+      break;
+    case 'linear_feet_yard_form':
+
+      if ($clicked_button == 'edit-button-1') {
+
+        variable_set('lfy_roll_weight', '');
+        variable_set('lfy_roll_width', '');
+        variable_set('lfy_basis_weight', '');
+        variable_set('lfy_grade_basis', 3300);
+
+        break;
+      }
+
+      /*variable_set('lfy_roll_weight', $values['roll_weight']);
+       variable_set('lfy_roll_width', $values['roll_width']);
+       variable_set('lfy_basis_weight', $values['basis_weight']);
+       variable_set('lfy_grade_basis', $values['grade_basis']);
+       */
+
+      $grade = 0; //$values['grade_basis'];
+      $roll_weight = doubleval($values['roll_weight']);
+      $roll_width = doubleval($values['roll_width']);
+      $basis = doubleval($values['basis_weight']);
+      $factor = doubleval($values['grade_basis']);
+
+
+
+
+      if ($roll_weight <= 0) {
+
+        $entry_error[] = 'The value for Roll Weight is invalid.';
+      }
+
+
+
+      if ($roll_width <= 0) {
+
+        $entry_error[] = 'The value for Roll Width is invalid.';
+      }
+
+
+      if ($basis <= 0) {
+
+        $entry_error[] = 'The value for Basis Weight is invalid.';
+      }
+
+      if (!empty($entry_error)) {
+        $error_message = create_error_message($entry_error);
+
+        $output = $error_message;
+        drupal_json_output(array('status' => TRUE, 'data' => $output));
+        break;
+      }
+
+      $i = 0;
+
+      //This may be old or defunct code as does not seem to affect the results
+      if ($grade > 374) { //decimal places - over 17x22 no decimals
+        $i = 0;
+      }
+      else {
+
+        $i = 2;
+      }
+
+
+      $linear_feet = number_format(round($roll_weight * 12 * $factor / $basis / $roll_width, $i), $i);
+      $linear_feet_message = '<div class="linear-feet"> Linear Feet = ' . $linear_feet .   ' </div>';
+
+      $linear_yards = number_format(round($roll_weight * 12 * $factor / $basis / $roll_width / 3, $i), $i);
+      $linear_yards_message = '<div class="linear-yards"> Linear Yards = ' . $linear_yards . '</div>';
+
+      $linear_length_message = '<div class="linear"> Linear Length Calculation' . $linear_feet_message . $linear_yards_message .  '</div>';
+
+
+      //Drupal_set_message($linear_length_message);
+
+
+      $output = $linear_length_message;
+
+      drupal_json_output(array('status' => TRUE, 'data' => $output));
+
+
+
+      break;
+    case 'msi_msf_form':
+
+      if ($clicked_button == 'edit-button-1') {
+
+
+        variable_set('msi_roll_width', '');
+        variable_set('msi_roll_weight', '');
+        variable_set('msi_grade', 3300);
+        variable_set('msi_basis', '' );
+
+        break;
+
+      }
+
+
+      /*
+       variable_set('msi_roll_width', $values['roll_width']);
+       variable_set('msi_roll_weight', $values['roll_weight']);
+       variable_set('msi_grade', $values['grade_basis']);
+       variable_set('msi_basis', $values['basis_weight'] );
+       */
+
+      $grade = 0;
+      $roll_width = doubleval($values['roll_width']);
+      $roll_weight = doubleval($values['roll_weight']);
+      $factor = doubleval($values['grade_basis']);
+      $basis = doubleval($values['basis_weight']);
+
+
+
+
+      if ($roll_weight <= 0) {
+
+        $entry_error[] = 'The value for Roll Weight is invalid.';
+      }
+
+
+      if ($roll_width <= 0) {
+
+        $entry_error[] = 'The value for Roll Width is invalid.';
+      }
+
+
+      if ($basis <= 0) {
+
+        $entry_error[] =  'The value for Basis Weight is invalid.';
+      }
+
+
+      if (!empty($entry_error)) {
+        $error_message = create_error_message($entry_error);
+
+        $output = $error_message;
+        drupal_json_output(array('status' => TRUE, 'data' => $output));
+        break;
+      }
+
+      $i = 0;
+      //This may be old or defunct code as does not seem to affect the results
+      if ($grade > 374) {
+
+        $i = 0;
+      }
+      else {
+
+        $i = 2;
+      }
+
+
+      $i = 6;
+
+      //fnRound( rollwidth*12*rollweight*12*factor/basis/rollwidth/1000,i);
+      $temp_msi = $roll_width * 12 * $roll_weight * 12 * $factor / $basis / $roll_width / 1000;
+
+      $msi = 0;
+      if ($temp_msi > 1) {
+
+        $msi = round($temp_msi, $i);
+
+      }
+      else {
+
+        $msi = round($temp_msi, 10);
+      }
+
+
+      //$msi = round($roll_width * 12 * $roll_weight * 12 * $factor/$basis/$roll_width/1000, $i);
+
+      $msi_message = '<div class="msi"> MSI = ' . $msi . '</div>';
+
+      //fnRound( rollwidth*12*rollweight*12*factor/basis/rollwidth/1000/144,i);
+      $temp_msf = $roll_width * 12 * $roll_weight * 12 * $factor / $basis / $roll_width / 1000 / 144;
+
+      $msf = 0;
+      if ($temp_msf > 1) {
+
+        $msf = round($temp_msf, $i);
+
+      }
+      else {
+
+        $msf = round($temp_msf, 10);
+
+      }
+
+      //$msf = round( $roll_width * 12 * $roll_weight * 12 * $factor/$basis/$roll_width/1000/144,$i);
+
+      $msf_message = '<div class="msf"> MSF = ' . $msf . '</div>';
+
+      $msi_msf_message = '<div class="msimsf">' . $msi_message . ' ' . $msf_message . '</div>';
+      //$msi_msf_message = $msi_message . ' ' . $msf_message;
+
+      //Drupal_set_message($msi_msf_message);
+
+      //Drupal_set_message($msi_message);
+      //Drupal_set_message($msf_message);
+
+      $output = $msi_msf_message;
+
+      drupal_json_output(array('status' => TRUE, 'data' => $output));
+
+      break;
+    case 'length_unit_conversion_form':
+    case 'area_unit_conversion_form':
+    case 'volume_unit_conversion_form':
+    case 'pressure_unit_conversion_form':
+    case 'weight_unit_conversion_form':
+    case 'density_unit_conversion_form':
+
+
+      global $_paper_calculators_units_om;
+
+      //$round_to_four = TRUE;
+
+      switch ($form_id) {
+
+        case 'length_unit_conversion_form':
+
+          if ($clicked_button == 'edit-button-1') {
+
+
+            variable_set('luc_from_unit', 103);
+            variable_set('luc_to_unit', 106);
+            variable_set('luc_quantity', 1);
+            variable_set('luc_multiple', '');
+
+
+            break;
+          }
+
+          $units = $_paper_calculators_units_om['length'];
+
+          //$round_to_four = TRUE;
+          /*
+           variable_set('luc_from_unit', $values['from_unit']);
+           variable_set('luc_to_unit', $values['to_unit']);
+           variable_set('luc_quantity', $values['quantity']);
+           variable_set('luc_multiple', $values['multiplier']);
+           *
+           */
+
+          /*
+           $from_unit = $_POST['from_unit'];
+           $to_unit = $_POST['to_unit'];
+           $multiplier = $_POST['multiplier'];
+           $quantity = $_POST['quantity'];
+           */
+
+
+          /*
+           $from_unit = $values['from_unit'];
+           $to_unit = $values['to_unit'];
+           $multiplier = $values['multiplier'];
+           $quantity = $values['quantity'];
+           *
+           */
+
+          break;
+        case 'area_unit_conversion_form':
+
+          if ($clicked_button == 'edit-button-1') {
+
+            variable_set('auc_from_unit', 205);
+            variable_set('auc_to_unit', 208);
+            variable_set('auc_quantity', 1);
+            variable_set('auc_multiple', '');
+
+            break;
+          }
+
+          $units = $_paper_calculators_units_om['area'];
+
+
+          break;
+        case 'volume_unit_conversion_form':
+
+
+          if ($clicked_button == 'edit-button-1') {
+
+
+            variable_set('vuc_from_unit', 306);
+            variable_set('vuc_to_unit', 304);
+            variable_set('vuc_quantity', 1);
+            variable_set('vuc_multiple', '');
+
+            break;
+          }
+
+          $units = $_paper_calculators_units_om['volume'];
+
+          //$round_to_four = FALSE;
+
+          /*
+           variable_set('vuc_from_unit', $values['from_unit']);
+           variable_set('vuc_to_unit', $values['to_unit']);
+           variable_set('vuc_quantity', $values['quantity']);
+           variable_set('vuc_multiple', $values['multiplier']);
+           *
+           */
+
+          break;
+        case 'pressure_unit_conversion_form':
+
+
+          if ($clicked_button == 'edit-button-1') {
+
+
+            variable_set('puc_from_unit', 421);
+            variable_set('puc_to_unit', 418);
+            variable_set('puc_quantity', 1);
+            variable_set('puc_multiple', '');
+
+            break;
+          }
+
+          $units = $_paper_calculators_units_om['pressure'];
+
+          //$round_to_four = FALSE;
+
+          /*variable_set('puc_from_unit', $values['from_unit']);
+           variable_set('puc_to_unit', $values['to_unit']);
+           variable_set('puc_quantity', $values['quantity']);
+           variable_set('puc_multiple', $values['multiplier']);
+           */
+
+          break;
+        case 'weight_unit_conversion_form':
+
+
+
+          if ($clicked_button == 'edit-button-1') {
+
+
+            variable_set('wuc_from_unit', 508);
+            variable_set('wuc_to_unit', 502);
+            variable_set('wuc_quantity', 1);
+            variable_set('wuc_multiple', '');
+
+            break;
+          }
+
+          $units = $_paper_calculators_units_om['weight_1'];
+
+          //$round_to_four = FALSE;
+
+          /*
+           variable_set('wuc_from_unit', $values['from_unit']);
+           variable_set('wuc_to_unit', $values['to_unit']);
+           variable_set('wuc_quantity', $values['quantity']);
+           variable_set('wuc_multiple', $values['multiplier']);
+           */
+
+          break;
+        case 'density_unit_conversion_form':
+
+
+          if ($clicked_button == 'edit-button-1') {
+
+
+            variable_set('duc_from_unit', 607);
+            variable_set('duc_to_unit', 602);
+            variable_set('duc_quantity', 1);
+            variable_set('duc_multiple', '');
+
+
+            break;
+          }
+
+          $units = $_paper_calculators_units_om['density'];
+
+          //$round_to_four = FALSE;
+
+          /*
+           variable_set('duc_from_unit', $values['from_unit']);
+           variable_set('duc_to_unit', $values['to_unit']);
+           variable_set('duc_quantity', $values['quantity']);
+           variable_set('duc_multiple', $values['multiplier']);
+           */
+
+          break;
+
+        default:
+          break;
+      }
+
+
+      if ($clicked_button == 'edit-button-1') {
+
+        break;
+      }
+
+
+      $quantity = doubleval($values['quantity']);
+      $multiplier = doubleval($values['multiplier']);
+      $from_unit_id = $values['from_unit'];
+      $from_unit = array();
+
+      $to_unit_id = $values['to_unit'];
+      $to_unit = array();
+
+
+      if (empty($quantity) || $quantity < 0) {
+        $entry_error[] = 'The value for Quantity is invalid.';
+      }
+
+      if ($quantity < 0.0000001) {
+
+        $quantity = 1; //default value
+      }
+
+      $multiplier = $values['multiplier'];
+
+
+      if ($multiplier < 0.0001 or $multiplier == 1.0) {
+
+        $multiplier = 0;
+        //$values['multiplier'] = 0;
+
+
+      }
+
+      $from_unit = $values['from_unit']; //dimx
+      $to_unit = $values['to_unit']; //dimy
+      if ($from_unit != 0 && $to_unit != 0 && $from_unit == $to_unit) {
+
+        $entry_error[] = "FROM and TO units are the same.";
+      }
+
+
+      if (!empty($entry_error)) {
+        $error_message = create_error_message($entry_error);
+
+        $output = $error_message;
+        drupal_json_output(array('status' => TRUE, 'data' => $output));
+        break;
+
+      }
+
+
+
+
+
+
+      foreach ($units as $key => $unit) {
+
+
+        if ($from_unit_id == $unit['unit_id']) {
+
+          $from_unit = $unit;
+        }
+
+        if ($to_unit_id == $unit['unit_id']) {
+
+          $to_unit = $unit;
+        }
+
+
+      }
+
+
+      $from_factor = doubleval($from_unit['factor']);
+      $to_factor = doubleval($to_unit['factor']);
+
+
+
+      $temp_reciprocal = $quantity * ($to_factor / $from_factor);
+
+      $reciprocal = NULL;
+
+      //if ($round_to_four) {
+      if ($temp_reciprocal > 1) {
+
+        $reciprocal = round($quantity * ($to_factor / $from_factor), 4);
+
+      }
+      else {
+
+        $reciprocal = round($quantity * ($to_factor / $from_factor), 10);
+      }
+
+
+      $temp_result = ($quantity * ($from_factor / $to_factor));
+
+      $result = 0;
+      if ($temp_result > 1) {
+
+        $result = round($quantity * ($from_factor / $to_factor), 4);
+      }
+      else {
+
+        $result = round($quantity * ($from_factor / $to_factor), 10);
+      }
+
+
+
+
+
+      if ($quantity > 1) { //check quantity if > 1 then plural
+        $unit_name = $from_unit['plural'];
+      }
+      else {
+
+        $unit_name = $from_unit['single'];
+      }
+
+      //$result_message = 'Result = ' . $quantity . ' ' . $unit_name .' = ' . $result . ' ' . $to_unit['plural'];
+      //$reciprocal_message = 'Reciprocal = ' . $quantity . ' per ' . $from_unit['single'] . ' = ' . $reciprocal . ' per ' . $to_unit['single'];
+
+      $result_with_multiplication = '';
+      $reciprocal_with_multiplication = '';
+
+
+      $result_multiplied = 0;
+      $multiplier_rounded  = 0;
+      if ($multiplier > 0) {
+
+        //round multiplier by 4 if greater than one otherwise by 10
+        if ($multiplier > 1) {
+
+          $multiplier_rounded = round($multiplier, 4);
+
+        }
+        else {
+
+          $multiplier_rounded = round($multiplier, 10);
+        }
+
+
+        $result_multiplied = 0;
+        if (($multiplier * $result) > 1) {
+
+          $result_multiplied = round($multiplier * $result, 4);
+
+        }
+        else {
+
+          $result_multiplied = round($multiplier * $result, 10);
+        }
+
+
+
+        $temp_recip_multiplied = $multiplier * $temp_reciprocal;
+        $reciprocal_multiplied = 0;
+        if ($temp_recip_multiplied > 1) {
+
+          $reciprocal_multiplied = round($temp_recip_multiplied, 4);
+
+        }
+        else {
+
+          $reciprocal_multiplied = round($temp_recip_multiplied, 10);
+        }
+
+
+        /****************************************************/
+
+        $result_with_multiplication = ' * ' . $multiplier_rounded . ' = ' . $result_multiplied;
+
+
+
+        $reciprocal_with_multiplication = ' * ' . $multiplier_rounded . ' = ' . $reciprocal_multiplied;
+
+
+
+
+
+      }
+
+      $uc_result_message =   '<div class="uc-result">';
+      $uc_result_message .= 'Result = ' . $quantity . ' ' . $unit_name . ' = ' . $result . ' ' . $to_unit['plural'] . $result_with_multiplication;
+      $uc_result_message .=  '</div>';
+
+
+      $uc_reciprocal_message = '<div class="uc-reciprocal">';
+      $uc_reciprocal_message .= 'Reciprocal = ' . $quantity . ' per ' . $from_unit['single'] . ' = ' . $reciprocal . ' per ' . $to_unit['single'] . $reciprocal_with_multiplication;
+      $uc_reciprocal_message .= '</div>';
+
+      //drupal_set_message($result_message);
+      //drupal_set_message($reciprocal_message);
+
+      $uc_messages = '<div class="uc-messages">'  . $uc_result_message . $uc_reciprocal_message .  '</div>';
+
+      $output = $uc_messages;
+
+      //drupal_set_message($uc_messages);
+      drupal_json_output(array('status' => TRUE, 'data' => $output));
+
+
+      break;
+    case 'metric_conversion_form':
+
+
+      if ($clicked_button == 'edit-button-1') {
+
+
+        variable_set('metric_bs-wgt', '');
+        variable_set('grade', 950);
+        variable_set('multiplier', '');
+
+        break;
+      }
+
+      /*
+       variable_set('metric_bs-wgt', $values['bs-wgt']);
+       variable_set('grade', $values['grade_basis_sizes']);
+       variable_set('multiplier', $values['multiplier']);
+       *
+       */
+
+      $basis = doubleval($values['bs-wgt']);
+      $grade = doubleval($values['grade_basis_sizes']);
+      $factor = doubleval($values['multiplier']);
+
+
+
+      if ($basis <= 0) {
+
+
+        $entry_error[] = 'The value for Bs. Wgt is invalid';
+      }
+
+
+      if (!empty($entry_error)) {
+
+        $error_message = create_error_message($entry_error);
+
+        $output = $error_message;
+        drupal_json_output(array('status' => TRUE, 'data' => $output));
+        break;
+
+      }
+
+
+
+
+      if ($multiplier < 0.0001 or $multiplier == 1.0) {
+
+        $multiplier = 0;
+      }
+
+
+
+
+
+
+      //US to Metric
+      // $basis lbs =
+      $US_to_Metric = round(($basis * 1406.5) / $grade, 0); //$g_m_squared g/m^2
+
+
+
+      $result_message = '';
+
+      if ($factor > 0) {
+
+        $rounded_factor = round($factor, 4);
+        $result = round($factor * round(($basis * 1406.5) / $grade, 0), 2);
+
+        $result_message = ' * ' . $rounded_factor . ' = ' . $result;
+      }
+
+      $US_to_Metric_message = '<div class="us-to-metric"> US TO METRIC = ' . $basis  . ' lbs = ' . $US_to_Metric . ' g/m2 ' . $result_message  . ' </div>';
+      // Metric to US
+      // $basis
+
+      $Metric_to_US = round(($basis * $grade) / 1406.5, 0); // lbs
+
+      $result_2_message = '';
+      if ($factor > 0) {
+        $rounded_factor_2 = round( $factor, 4); //lbs
+        $result_2 = round($factor * round(($basis * $grade) / 1406.5, 0), 2);
+
+        $result_2_message = ' * ' . $rounded_factor_2 . ' = ' . $result_2;
+      }
+
+      $Metric_to_US_message = '<div class="metric-to-us"> METRIC TO US = ' . $basis  . ' g/m2 = ' . $Metric_to_US . ' lbs ' . $result_2_message . '</div>';
+
+      $us_and_metric = '<div class="us-and-metric">' . $US_to_Metric_message . $Metric_to_US_message .  '</div>';
+
+      //Drupal_set_message($US_to_Metric_message);
+      //Drupal_set_message($Metric_to_US_message);
+
+      $pound_note = '<div class="us-metric-note">' . 'NOTE: The term "lbs" refers to pounds per 500 sheets' . '</div>';
+
+      $output = $us_and_metric . $pound_note;
+
+      //drupal_set_message($uc_messages);
+      drupal_json_output(array('status' => TRUE, 'data' => $output));
+
+      //Drupal_set_message($us_and_metric);
+
+      break;
+    case 'unit_price_converter_form':
+
+      if ($clicked_button == 'edit-button-1') {
+
+        variable_set('upc_quantity', 1 );
+        variable_set('upc_from_unit', 908);
+
+        break;
+      }
+
+      //variable_set('upc_quantity', $values['quantity'] );
+      //variable_set('upc_from_unit', $values['upc_from_unit']);
+
+      $quantity = doubleval($values['quantity']);
+      $uom_id = $values['upc_from_unit']; //unit of measure
+
+
+      if (empty($quantity) || $quantity < 0) {
+        //entry error
+        $entry_error[] = 'The value for Quantity is invalid';
+      }
+
+      if ($quantity < 0.0000001) {
+
+        $quantity = 1.0; //default value
+      }
+
+      if (!empty($entry_error)) {
+
+        $error_message = create_error_message($entry_error);
+
+        $output = $error_message;
+        drupal_json_output(array('status' => TRUE, 'data' => $output));
+        break;
+
+      }
+
+
+      if ($uom_id < 100) {
+
+        $uom_id = 900;
+      }
+
+      //$x = $uom % 100;
+
+      $uom = array();
+      $uom[] = get_uom($uom_id);
+
+      //$other_uoms = get_uoms()
+
+      $to_factor = array();
+
+      $from_factor = get_factor($uom_id);
+      //$uom[] = get_other_uom($from_factor);
+
+      $to_factor = get_to_factors($uom_id);
+      //$uom[] = get_other_uom($to_factor);
+
+      //conversion
+      //tempCalc=fnRound(quantity*varY/varX,4)
+
+      $temp = array();
+
+
+      $temp[] = ($quantity * $to_factor[0]['factor'] / $from_factor);
+      $temp[] = ($quantity * $to_factor[1]['factor'] / $from_factor);
+
+      $price = array();
+
+      foreach ($temp as $value) {
+
+        $value_double = doubleval($value);
+
+        if ($value_double > 1) {
+
+          //$price[] = number_format($value_double, 4);
+          $price[] = round($value_double, 4);
+
+
+        }
+        else {
+
+          //$price[] = number_format($value_double, 10);
+          $price[] = round($value_double, 10);
+        }
+
+      }
+      //foreach($temp[] as )
+
+      $unit_price_conversion_message = '<div class="upc"> ';
+      $unit_price_conversion_message .= $quantity . ' per ' . $uom[0] . ' = ';
+      $unit_price_conversion_message .= '<div class="to-price">';
+      $unit_price_conversion_message .= '<div class="to-price-1">' .  $price[0] . ' per ' . $to_factor[0]['uom'] . ' </div> ';
+      $unit_price_conversion_message .= '<div class="to-price-1">' .  $price[1] . ' per ' . $to_factor[1]['uom'] . ' </div> ';
+      $unit_price_conversion_message .= '</div></div>';
+
+
+      //drupal_set_message($unit_price_conversion_message);
+
+      $output = $unit_price_conversion_message;
+      drupal_json_output(array('status' => TRUE, 'data' => $output));
+
+      break;
+
+    default:
+
+      break;
+  }
+
+
+}
+
+
+
+/**
+
+ hook_nodeapi() in Drupal 6 became (see Node API page)
+ hook_node_delete(),
+ hook_node_insert(),
+ hook_node_load(),
+ hook_node_prepare(),
+ hook_node_prepare_translation(),
+ hook_node_search_result(),
+ hook_node_presave(),
+ hook_node_update(),
+ hook_node_update_index(),
+ hook_node_validate(), and
+ hook_node_view().
+
+ Note that the former 'alter' operation of hook_nodeapi() was replaced by hook_node_view_alter(),
+ which works differently, as it receives a render array rather than operating on an HTML string that is part of the node.
+
+
+ */

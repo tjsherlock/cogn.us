@@ -1,0 +1,11 @@
+; $Id$
+name = "Paper Calculators"
+description = "Custom module to provide paper calculators 14 Nov 2013"
+core = 7.x
+version = 7.x-1.0
+
+files[] = paper_calculators.module
+
+
+
+

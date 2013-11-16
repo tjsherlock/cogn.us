@@ -1,0 +1,8 @@
+filename = "Cognus-2013-11-15T16-59-11"
+description = ""
+datestamp = "1384552751"
+generator = "Backup and Migrate (http://drupal.org/project/backup_migrate)"
+generatorversion = "7.x-2.x"
+sites[0][version] = "7.22"
+sites[0][name] = "Cognus"
+sites[0][url] = "http://localhost:8888/cogn.us/"
