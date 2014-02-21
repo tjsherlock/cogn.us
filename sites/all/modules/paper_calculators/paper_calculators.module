@@ -1465,112 +1465,159 @@ function _build_weight_2_list() {
 function paper_calculators_menu() {
 
   $items = array();
+  
 
 
-  $items['calc/message_js'] = array(
+  /*$items['calc/message_js'] = array(
     'page callback' => 'calc_message_js',
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
+  );*/
+  
+   /*$items['admin/config/date/calendar'] = array(
+    'title' => 'Calendar',
+    'description' => 'Calendar administration.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('calendar_admin_settings'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer site configuration'),
+  );*/
+  
+
+  
+  
+  $items['paper-calculators'] = array(
+    'title' => 'Paper Calculators',
+    'description' => 'These calculators will help you estimate costs and usage. Please select the calculator you would like to use.',
+    'page callback' => 'paper_calculators_list',
+    'access arguments' => array('access content'),
+    //'file' => 'content_types.inc',
   );
 
-
-  $items['paper-tools/paper-calculators/area-unit-conversion'] = array(
+  $items['paper-calculators/area-unit-conversion'] = array(
     'title' => 'Area Unit Conversion',
     'page callback' => 'area_unit_conversion_form_page',
-    'type' => MENU_CALLBACK,
+    //'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
     'access arguments' => array('access content'),
   );
 
-  $items['paper-tools/paper-calculators/density-unit-conversion'] = array(
+  $items['paper-calculators/density-unit-conversion'] = array(
     'title' => 'Density Unit Conversion',
     'page callback' => 'density_unit_conversion_form_page',
-    'type' => MENU_CALLBACK,
+    //'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
     'access arguments' => array('access content'),
   );
 
-  $items['paper-tools/paper-calculators/length-unit-conversion'] = array(
+  $items['paper-calculators/length-unit-conversion'] = array(
     'title' => 'Length Unit Conversion',
     'page callback' => 'length_unit_conversion_form_page',
-    'type' => MENU_CALLBACK,
+    //'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
     'access arguments' => array('access content'),
   );
 
-  $items['paper-tools/paper-calculators/linear-feet-yard'] = array(
+  $items['paper-calculators/linear-feet-yard'] = array(
     'title' => 'Linear Feet/Yard',
     'page callback' => 'linear_feet_yard_form_page',
-    'type' => MENU_CALLBACK,
+     //'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
     'access arguments' => array('access content'),
   );
 
 
-  $items['paper-tools/paper-calculators/m-weight'] = array(
+  $items['paper-calculators/m-weight'] = array(
     'title' => 'M Weight',
     'page callback' => 'm_weight_form_page',
-    'type' => MENU_CALLBACK,
+    //'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
     'access arguments' => array('access content'),
   );
 
-  $items['paper-tools/paper-calculators/metric-conversion-table'] = array(
+  $items['paper-calculators/metric-conversion-table'] = array(
     'title' => 'Metric Conversion Table',
     'page callback' => 'metric_conversion_form_page',
-    'type' => MENU_CALLBACK,
+    //'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
     'access arguments' => array('access content'),
   );
 
-  $items['paper-tools/paper-calculators/msi-msf'] = array(
+  $items['paper-calculators/msi-msf'] = array(
     'title' => 'MSI/MSF',
     'page callback' => 'msi_msf_form_page',
-    'type' => MENU_CALLBACK,
+     //'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
     'access arguments' => array('access content'),
   );
 
-  $items['paper-tools/paper-calculators/pressure-unit-conversion'] = array(
+  $items['paper-calculators/pressure-unit-conversion'] = array(
     'title' => 'Pressure Unit Conversion',
     'page callback' => 'pressure_unit_conversion_form_page',
-    'type' => MENU_CALLBACK,
+     //'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
     'access arguments' => array('access content'),
   );
 
 
-  $items['paper-tools/paper-calculators/roll-weight'] = array(
+  $items['paper-calculators/roll-weight'] = array(
     'title' => 'Roll Weight',
     'page callback' => 'roll_weight_form_page',
-    'type' => MENU_CALLBACK,
+     //'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
     'access arguments' => array('access content'),
   );
 
-  $items['paper-tools/paper-calculators/usage'] = array(
+  $items['paper-calculators/usage'] = array(
     'title' => 'Usage',
     'page callback' => 'usage_form_page',
-    'type' => MENU_CALLBACK,
+     //'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
     'access arguments' => array('access content'),
   );
 
-  $items['paper-tools/paper-calculators/unit-price-converter'] = array(
+  $items['paper-calculators/unit-price-converter'] = array(
     'title' => 'Unit Price Converter',
     'page callback' => 'unit_price_converter_form_page',
-    'type' => MENU_CALLBACK,
+     //'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
     'access arguments' => array('access content'),
   );
 
-  $items['paper-tools/paper-calculators/volume-unit-conversion'] = array(
+  $items['paper-calculators/volume-unit-conversion'] = array(
     'title' => 'Volume Unit Conversion',
     'page callback' => 'volume_unit_conversion_form_page',
-    'type' => MENU_CALLBACK,
+     //'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
     'access arguments' => array('access content'),
   );
 
 
-  $items['paper-tools/paper-calculators/weight-unit-conversion'] = array(
+  $items['paper-calculators/weight-unit-conversion'] = array(
     'title' => 'Weight Unit Conversion',
     'page callback' => 'weight_unit_conversion_form_page',
-    'type' => MENU_CALLBACK,
+     //'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
     'access arguments' => array('access content'),
   );
 
   return $items;
 }
 
+
+function paper_calculators_list(){
+    
+    $message = t("list of paper calculators will go here.");
+    
+    // Get a formatted date.
+    $time = date('M d, Y');
+    
+    $page = array(
+      '#markup' => "$time: $message",
+    );
+    
+    return $page;
+}
 
 //added '&' to second argument to be Drupal 7 compatible.
 /**

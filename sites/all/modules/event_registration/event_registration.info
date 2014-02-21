@@ -1,0 +1,17 @@
+
+name = "Event Registration"
+description = "Custom module to allow registrant to register a volunteer (self) or an assignee (any PTA member other than the chair)."
+core = 7.x
+version = 7.x-1.0
+
+package = "Cognus"
+
+files[] = includes/event_station.constants.inc
+files[] = includes/event_station.controller.inc
+files[] = event_station.install
+files[] = event_station.module
+
+;stylesheets[all][]   = theme/event_registration.css
+
+configure = admin/config/event_station/settings
+

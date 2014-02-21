@@ -1,0 +1,158 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the event_station module.
+ *
+ */
+
+
+include_once DRUPAL_ROOT . '/' . drupal_get_path('module', 'event_station') . "/includes/event_station.constants.inc";
+
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function event_station_install() {
+  // Use schema API to create database table.
+  // TODO The drupal_(un)install_schema functions are called automatically in D7.
+  //drupal_install_schema('event_station');
+}
+/**
+ * Implements hook_uninstall().
+ */
+function event_station_uninstall() {
+  // Use schema API to delete database table.
+  // TODO The drupal_(un)install_schema functions are called automatically in D7.
+  //drupal_uninstall_schema('event_station');
+  // Delete our module's variable from the variables table.
+
+}
+
+
+/**
+ * Implements hook_schema().
+ */
+function event_station_schema() {
+
+  $schema['event_station'] = array(
+    'description' => "Stores a specific student activity overseen by a volunteer parent at a PTA event. ",
+    'fields' => array(
+      'esid' => array(
+        'type' => 'serial',
+        //'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        //'default' => 0,
+        'description' => 'The primary identifier for a station.',
+      ),
+      // If we allow multiple bundles, then the schema must handle that;
+      // We'll put it in the 'bundle_type' field to avoid confusion with the
+      // entity type.
+     'bundle_type' => array(
+      'description' => 'The bundle type',
+      'type' => 'text',
+      'size' => 'medium',
+      'not null' => TRUE
+     ),
+      // Defaults to NULL in order to avoid a brief period of potential
+      // deadlocks on the index.
+      /*'vid' => array(
+        'description' => 'The current {entity_revision}.vid version identifier.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => NULL,
+      ),*/
+      //reactivated title tjs 2012June17	
+      'title' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+        'description' => "The station\'s {entity}.name.",
+      ),
+      'description' => array(
+        'type' => 'text',//varchar instead?  2013Nov21 tjs
+        'not null' => TRUE,
+        'description' => 'The station\'s {entity}.description.',
+        //'default' => '',
+      ),
+      //The number of slots available for volunteers
+      // Since this is an array should the field be a foreign key to another table acting as the array.
+      'spots' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,//0,
+        'description' => 'The station\'s volunteer {entity}.spots.',
+      ),
+      // Since this is an array should the field be a foreign key to another table acting as the array.        		
+      'volunteers' => array(
+        'description' => 'The station\'s {entity}.volunteer.',
+        'type' => 'text',
+        'not null' => TRUE,
+        'serialize' => TRUE,
+        'serialized default' => 'a:0:{}',
+      ),
+      // this is the registration event
+      'event' => array(
+        'description' => 'The station\'s {entity}.event.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        //'default' => variable_get('registration_event', 'PTA Event'),
+        'default' => DEFAULT_EVENT,
+      ),
+      'weight' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0, //make default dynamic?  Like auto-indexing?  Perhaps set new value by variable_set.
+        'description' => 'The station\'s {entity}.weight.', //The create new value by variable_get() + 1 2011Jan29
+      ),
+      
+      'owner' => array(
+        'description' => 'The {users}.uid that owns this station; initially, this is the user that created it.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'status' => array(
+        'description' => 'Boolean indicating whether the station is open or closed (visible to non-administrators).',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+      'visibility' => array(
+        'description' => 'Boolean indicating whether the station is visible to non-administrators.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 1,
+      ),      
+      'created' => array(
+        'description' => 'The Unix timestamp when the node was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'changed' => array(
+        'description' => 'The Unix timestamp when the node was most recently saved.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ), //fields
+    'primary key' => array('esid'),//, 'vid'),
+    /*'unique keys' => array(
+      'vid' => array('vid'),
+    ),*/
+    'indexes' => array(
+      'id' => array('esid'),
+      'station_changed'        => array('changed'),
+      'station_created'        => array('created'),
+    ),
+  ); //$schema['event_station']
+
+  return $schema;
+}
+
+
+//function event_station_update_3001() { }

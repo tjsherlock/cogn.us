@@ -1,0 +1,29 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the event_gallery module.
+ *
+ */
+
+
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function event_gallery_install() {
+  // Use schema API to create database table.
+  // TODO The drupal_(un)install_schema functions are called automatically in D7.
+  // drupal_install_schema('event_gallery')
+}
+/**
+ * Implements hook_uninstall().
+ */
+function event_gallery_uninstall() {
+  // Use schema API to delete database table.
+  // TODO The drupal_(un)install_schema functions are called automatically in D7.
+  // drupal_uninstall_schema('event_gallery')
+  // Delete our module's variable from the variables table.
+
+}
+
+function even_gallery_update_3001() { }

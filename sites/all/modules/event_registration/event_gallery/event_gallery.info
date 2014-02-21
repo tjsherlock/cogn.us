@@ -1,0 +1,7 @@
+
+name = "Event Gallery"
+description = "Custom module to display a photo gallery for a PTA event."
+core = 7.x
+version = 7.x-1.0
+
+package = "Cognus"

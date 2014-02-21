@@ -1556,6 +1556,13 @@ function format_string($string, array $args = array()) {
  * @ingroup sanitization
  */
 function check_plain($text) {
+    if(is_string($text)){
+        $yup = $text;
+        
+    }
+    else{
+        $nope = $text;
+    }
   return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
 }
 

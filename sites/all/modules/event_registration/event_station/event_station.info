@@ -1,0 +1,17 @@
+
+name = "Event Station"
+description = "Custom module to create event stations."
+core = 7.x
+version = 7.x-1.0
+
+configure = admin/config/event_station/manage
+
+files[] = includes/event_station.controller.inc
+files[] = includes/event_station.constants.inc
+files[] = event_station.css
+files[] = event_station.install
+files[] = event_station.module
+
+stylesheets[all][]   = theme/event_station.css
+
+package = "Cognus"
